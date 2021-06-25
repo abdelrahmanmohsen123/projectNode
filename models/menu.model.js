@@ -4,15 +4,26 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
 const menuSchema = new mongoose.Schema({
-    catName:{ type:String, required:true, maxlength:20 },
+    catName:{ type:String, required:true, maxlength:20, unique:true},
     meals:[{
 
-        meal_name:{type:String, required:true,unique:true},
+        // meal:[{
+        //     meal_id: {type: mongoose.Schema.Types.ObjectId},
+        //     meal_name:{type:String, required:true, unique:true},
+        //     meal_image:{type:String},
+        //     description:{type:String},
+        // }],
+
+
+        
+        meal_name:{type:String, required:true, unique:true},
         meal_image:{type:String},
         description:{type:String},
+
+
         size:[{
-            name:{type:String,default:'general'},
-            price:{type:Number,required:true},   
+            name:{type:String, default:'meduim', enum:['large', 'meduim', 'small']},
+            price:{type:Number, required:true},   
         }],
         offer_meal:[{
             newPrice:{type:Number},

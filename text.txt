@@ -20,3 +20,15 @@ delete            { abdelrahman }                          ---- 9  --->
 
 
 
+///// this routes for cats
+http://localhost:3000/menu/displayCats   // to show all cats
+
+http://localhost:3000/menu/editCats/60d62505664d7f34db2994f6  // to edit main cats
+
+http://localhost:3000/menu/addCats  // to add main cats
+
+
+
+
+
+
