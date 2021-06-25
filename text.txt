@@ -1,0 +1,22 @@
+/////// require user
+
+
+register user                       { amira}                              ----1 -> 
+login user                        { amira }                             ----2 -> 
+edit  ->except (email)            { asmaa  }                                ---3  ->      
+profile (image ,name ,email ) ->except (password)    { asmaa}     ---4  -> 
+delete from user and user   {}                        { asmaaa}     ---5 -> 
+
+
+
+/////// require menu
+
+add category   { add meals ,add addition  }   {adham}                               ---- 6  ->
+edit              { abdelrahman }                               ---- 7  ->          
+show              { abdelrahman }                            ---- 8   --->      
+delete            { abdelrahman }                          ---- 9  --->           
+
+
+
+
+
