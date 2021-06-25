@@ -103,6 +103,46 @@ router.get('/menu/:id/addMeal', async(req, res) => {
     }
     
 })
+//show single cat
+router.get('/menu/showCat/:id',async(req,res)=>{
+    try{
+        let id = req.params.id
+        let data = await Menu.findById(id)
+        if(data==null) throw new Error ()
+        res.status(200).send({
+            apiStatus: true,
+            data: data,
+            message: `done`
+    })
+    }
+    catch(e){
+        res.status(500).send({
+            apiStatus: false,
+            message: `not found`
+        })
+    }
     
+})
+//delete single cat 
+router.delete('/menu/deleteCat/:id',async(req,res)=>{
+
+    try{
+        let id = req.params.id
+        let data = await Menu.findById(id)
+        if(data==null) throw new Error ()
+        await data.remove()
+        res.status(200).send({
+            apiStatus: true,
+            message: `deleted successful`
+    })
+    }
+    catch(e){
+        res.status(500).send({
+            apiStatus: false,
+            message: `not found`
+        })
+    }
+
+})
 
 module.exports = router
