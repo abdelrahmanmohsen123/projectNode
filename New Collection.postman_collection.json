@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "bb7af1c9-2610-40bb-81dc-17090d2c015d",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "addCats",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"catName\" : \"meat\",\n    \"meals\" : [ {\n        \"meal_name\": \"meal 10\",\n        \"meal_image\": \"image  meal 10\",\n        \"description\" :  \"the best meal 10\",\n        \"size\": [\n            { \"name\": \"large\", \"price\": 50 },\n            { \"name\": \"meduim\", \"price\": 40 },\n            { \"name\": \"small\", \"price\": 30 }\n        ],\n        \"offer_meal\":[\n            {\n            \"newPrice\": 10,\n            \"DateFrom\": \"12-10-2020\",\n            \"DateTo\": \"12-11-2020\"\n            },\n            {\n            \"newPrice\": 15,\n            \"DateFrom\": \"1-10-2020\",\n            \"DateTo\": \"1-11-2020\"\n            }\n        ]\n        } \n    ],\n    \"additions\": [\n        { \"addition_name\": \"name addition 1\", \"price\": 10  },\n        { \"addition_name\": \"name addition 2\", \"price\": 5  },\n        { \"addition_name\": \"name addition 3\", \"price\": 20  }\n    ],\n    \"general_offers\": [\n        {\n            \"offer_name\": \"offer name 1\",\n            \"offer_description\": \"the good offer 1\",\n            \"price\": 20,\n            \"meal_image\": \"image meal\",\n            \"DateFrom\": \"12-10-2020\",\n            \"DateTo\": \"12-11-2020\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/menu/addCats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"menu",
+						"addCats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editCats",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "id",
+						"value": "\"60d62505664d7f34db2994f6\"",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"catName\": \"ghsgfdsj\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/menu/editCats/60d62505664d7f34db2994f6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"menu",
+						"editCats",
+						"60d62505664d7f34db2994f6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "diaplayAllCats",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/menu/displayCats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"menu",
+						"displayCats"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
