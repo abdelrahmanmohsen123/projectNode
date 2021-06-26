@@ -214,6 +214,46 @@ router.get('/menu/cat/:id/showSingleMeal/:meal_id',async(req,res)=>{
     }
     
 })
+// Edit meals by id (edit meals )
+router.patch('/menu/cat/:id/editmeal/:meal_id', async(req, res) => {
+    
+    try {
+        id = req.params.id
+        meal_id=req.params.meal_id
+        let category = await Menu.findById(id)
+        let meal = category.meals.find(meal=>{
+            return meal_id==meal._id
+        })
+        let objkeys = Object.keys(req.body)
+        let allowUpdate = ['meal_name','meal_image','description','size','offer_meal']
+        let validUpdate = objkeys.every(meal => allowUpdate.includes(meal))
+        
+        if(!validUpdate) res.status(500).send({
+            apiStatus: false,
+            message: `Not allowed update ${allowUpdate} only`
+        })
+       
+         await objkeys.forEach(meals =>{
+            meal[meals] = req.body[meals]
+            
+         } )
+        
+        await category.save()
+       
+        res.status(200).send({
+            apiStatus: true,
+            data:category,
+            message: `Updated success ${allowUpdate}`
+        })
+    }
+    catch(error) {
+        res.status(500).send({
+            apiStatus: false,
+            error:error.message,
+            message: `Check data to update`
+        })
+    }
+})
 
 // delete single meal
 router.delete('/menu/cat/:id/deleteSingleMeal/:meal_id',async(req,res)=>{
@@ -272,6 +312,46 @@ router.get('/menu/cat/:id/showaddition/:addition_id',async(req,res)=>{
     
 })
 
+// Edit additions by id (edit additions )
+router.patch('/menu/cat/:id/editaddition/:addition_id', async(req, res) => {
+    
+    try {
+        id = req.params.id
+        addition_id=req.params.addition_id
+        let category = await Menu.findById(id)
+        let addition = category.additions.find(addition=>{
+            return addition_id==addition._id
+        })
+        let objkeys = Object.keys(req.body)
+        let allowUpdate = ['addition_name','price']
+        let validUpdate = objkeys.every(addition => allowUpdate.includes(addition))
+        
+        if(!validUpdate) res.status(500).send({
+            apiStatus: false,
+            message: `Not allowed update ${allowUpdate} only`
+        })
+       
+         await objkeys.forEach(additions =>{
+            addition[additions] = req.body[additions]
+            
+         } )
+        
+        await category.save()
+       
+        res.status(200).send({
+            apiStatus: true,
+            data:category,
+            message: `Updated success ${allowUpdate}`
+        })
+    }
+    catch(error) {
+        res.status(500).send({
+            apiStatus: false,
+            error:error.message,
+            message: `Check data to update`
+        })
+    }
+})
 // delete addition
 router.delete('/menu/cat/:id/deleteaddition/:addition_id',async(req,res)=>{
     try{
@@ -329,6 +409,47 @@ router.get('/menu/cat/:id/showgeneral_offers/:general_offers_id',async(req,res)=
         })
     }
     
+})
+
+// Edit General_offer by id (edit General_offer )
+router.patch('/menu/cat/:id/editGeneral_offer/:General_offer_id', async(req, res) => {
+    
+    try {
+        id = req.params.id
+        General_offer_id=req.params.General_offer_id
+        let category = await Menu.findById(id)
+        let General_offer = category.general_offers.find(General_offer=>{
+            return General_offer_id==General_offer._id
+        })
+        let objkeys = Object.keys(req.body)
+        let allowUpdate = ['offer_name','price','offer_description','meal_image','DateFrom','DateTo']
+        let validUpdate = objkeys.every(General_offer => allowUpdate.includes(General_offer))
+        
+        if(!validUpdate) res.status(500).send({
+            apiStatus: false,
+            message: `Not allowed update ${allowUpdate} only`
+        })
+       
+         await objkeys.forEach(General_offers =>{
+            General_offer[General_offers] = req.body[General_offers]
+            
+         } )
+        
+        await category.save()
+       
+        res.status(200).send({
+            apiStatus: true,
+            data:category,
+            message: `Updated success ${allowUpdate}`
+        })
+    }
+    catch(error) {
+        res.status(500).send({
+            apiStatus: false,
+            error:error.message,
+            message: `Check data to update`
+        })
+    }
 })
 
 // delete general_offers

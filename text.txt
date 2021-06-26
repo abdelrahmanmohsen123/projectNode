@@ -14,7 +14,37 @@ delete from user and user   {}                        { asmaaa}     ---5 ->
 add category   { add meals ,add addition  }   {adham}                               ---- 6  ->
 edit              { abdelrahman }                               ---- 7  ->          
 show              { abdelrahman }                            ---- 8   --->      
-delete            { abdelrahman }                          ---- 9  --->           
+delete            { abdelrahman }                          ---- 9  ---> 
+
+
+
+
+
+
+edit catsname  -> done
+//edit meals
+//edit offers
+
+
+
+
+//orders->relation to meals
+//carts->relation to meals
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
