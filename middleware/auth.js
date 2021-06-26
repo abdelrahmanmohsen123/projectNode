@@ -7,11 +7,11 @@ const generalAuth = async(req, res, next) => {
 
     try {
         const token = req.header('Authorization').replace('bearer ', '')
-        const myDecodedToken = jwt.verify(token, process.env.JWTKEY)
+        const myDecodedToken = jwt.verify(token, process.env.JWT)
         const user = await User.findOne({
             _id: myDecodedToken._id,
             'tokens.token': token,
-            userType: 'general'
+            //userType: 'general'
         })
         if (!user) throw new Error()
         req.user = user
@@ -32,7 +32,7 @@ const authMe = async(req, res, next) => {
     // res.send(req.header('Authorization'))
     try {
         const token = req.header('Authorization').replace('bearer ', '')
-        const myDecodedToken = jwt.verify(token, process.env.JWTKEY)
+        const myDecodedToken = jwt.verify(token, process.env.JWT)
         const user = await User.findOne({
             _id: myDecodedToken._id,
             'tokens.token': token,
@@ -55,7 +55,7 @@ const adminAuth = async(req, res, next) => {
 
     try {
         const token = req.header('Authorization').replace('bearer ', '')
-        const myDecodedToken = jwt.verify(token, process.env.JWTKEY)
+        const myDecodedToken = jwt.verify(token, process.env.JWT)
         const user = await User.findOne({
             _id: myDecodedToken._id,
             'tokens.token': token,

@@ -13,7 +13,7 @@ router.post('/user/register', async(req, res) => {
         res.status(200).send({
             status: true,
             message: 'user inserted',
-            userData: { user }
+            userData:  user 
         })
 
     } catch (e) {
@@ -25,31 +25,33 @@ router.post('/user/register', async(req, res) => {
     }
 })
 
-router.post('/user/all', async(req, res) => {
+router.get('/user/all', async(req, res) => {
     try {
         const allUsers = await User.find()
         res.status(200).send({
             status: true,
-            data: allUsers
+            data: allUsers,
+            message : allUsers
         })
-        console.log(allUsers)
+        
     } catch (e) {
         res.status(500).send({
             status: false,
-            error: e.message,
+            error: e,
             message: 'error in show data'
         })
     }
 
 })
 
-router.post('/user/single/:id', async(req, res) => {
+router.get('/user/single/:id',auth.adminAuth ,async(req, res) => {
     try {
         let user = req.params.id
         let showUser = await User.findById(user)
-
+        //console.log(showUser)
         if (!showUser) return res.status(500).send({
             apiStatus: false,
+            
             result: error,
         })
         res.status(200).send({
@@ -66,7 +68,7 @@ router.post('/user/single/:id', async(req, res) => {
     }
 })
 
-router.delete('/user/delUser/:id', async(req, res) => {
+router.delete('/user/delUser/:id', auth.adminAuth,async(req, res) => {
     try {
         let id = req.params.id
         console.log(id)
@@ -85,7 +87,23 @@ router.delete('/user/delUser/:id', async(req, res) => {
     }
 })
 
-router.patch('/user/edit/:id', async(req, res) => {
+router.delete('/user/delete', auth.authMe, async(req,res)=>{
+    try{    
+        await req.user.remove()
+        await user.save()
+        res.status(200).send({
+            apiStatus: true,
+            message: `Deleted Done`
+        })
+    } catch (error) {
+        res.status(500).send({
+            apiStatus: false,
+            result: error,
+            message: `Can't delete`
+        })
+    }
+})
+router.patch('/user/edit/:id',auth.generalAuth ,async(req, res) => {
     reqEdit = Object.keys(req.body)
     editItems = ['fname', 'lname', 'password']
     allowedEdit = reqEdit.every(item => editItems.includes(item))
@@ -115,13 +133,12 @@ router.patch('/user/edit/:id', async(req, res) => {
 
 router.post('/user/login', async(req, res) => {
     try {
-        const user = await User.logMeOn(req.body.email, req.body.password)
-            // console.log(user)
-        const token = await user.generateAuthToken()
-        console.log(token)
+        let user = await User.logMeOn(req.body.email, req.body.password)
+        //console.log(user)
+        let token = await user.generateAuthToken()
         res.status(200).send({
             status: true,
-            data: { user, token },
+            data: {token,user},
             message: "logged in"
         })
     } catch (error) {
@@ -133,7 +150,7 @@ router.post('/user/login', async(req, res) => {
     }
 })
 
-router.patch('/user/activate/:id', async(req, res) => {
+router.patch('/admin/activate/:id', auth.adminAuth,async(req, res) => {
     try {
         id = req.params.id
         user = await User.findById(id)
@@ -151,7 +168,7 @@ router.patch('/user/activate/:id', async(req, res) => {
     }
 })
 
-router.patch('/user/deactivate/:id', async(req, res) => {
+router.patch('/admin/deactivate/:id',auth.adminAuth ,async(req, res) => {
     try {
         id = req.params.id
         user = await User.findById(id)
@@ -165,6 +182,60 @@ router.patch('/user/deactivate/:id', async(req, res) => {
         res.status(500).send({
             status: false,
             error: error.message
+        })
+    }
+})
+
+router.patch('/user/activate', auth.authMe, async(req,res)=>{
+    try{
+        req.user.accountStatus=true
+        await req.user.save()
+        res.status(200).send({
+            status: true,
+            message: 'user activate'
+        })
+    } catch (error) {
+        res.status(500).send({
+            status: false,
+            error: error.message
+        })
+    }
+})
+
+router.post('/logout',auth.generalAuth, async(req,res)=>{
+    try{
+        req.user.tokens = req.user.tokens.filter(ele=>{
+            return ele.token!=req.token
+        })
+        await req.user.save()
+        res.status(200).send({
+            status:true,
+            message:'logged out'
+        })
+    }
+    catch(e){
+        res.status(500).send({
+            status:false,
+            message:'error',
+            error:e.message
+        })
+    }
+})
+
+router.post('/logoutAll',auth.generalAuth, async(req,res)=>{
+    try{
+        req.user.tokens=[]
+        await req.user.save()
+        res.status(200).send({
+            status:true,
+            message:'logged out'
+        })
+    }
+    catch(e){
+        res.status(500).send({
+            status:false,
+            message:'error',
+            error:e.message
         })
     }
 })

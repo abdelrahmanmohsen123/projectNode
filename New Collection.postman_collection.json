@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a61842c0-0712-47ae-a95e-59f165406b98",
+		"_postman_id": "4e0d401d-7af2-4ae7-8d4c-7955a73fc571",
 		"name": "New Collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -515,7 +515,7 @@
 					"response": []
 				},
 				{
-					"name": "user_delete",
+					"name": "admin_user_delete",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -538,16 +538,16 @@
 				{
 					"name": "user_single",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [
 							{
-								"key": "id",
-								"value": "60d6328d304eb72b72be6a34",
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3NTgzMjE2YzlkMDFkNTA1NWYwNjMiLCJpYXQiOjE2MjQ3MzAyNDJ9.vE7l5LX0oz6nluLbnMjszo28I_JBvF468gVKwGXA9QQ",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/user/single/60d6f7311cfc98179b3dbbdc",
+							"raw": "http://localhost:3000/user/single/60d76afc6803c510500ce169",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -556,7 +556,7 @@
 							"path": [
 								"user",
 								"single",
-								"60d6f7311cfc98179b3dbbdc"
+								"60d76afc6803c510500ce169"
 							]
 						}
 					},
@@ -565,8 +565,14 @@
 				{
 					"name": "user_all",
 					"request": {
-						"method": "POST",
-						"header": [],
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3NTgzMjE2YzlkMDFkNTA1NWYwNjMiLCJpYXQiOjE2MjQ3MzAyNDJ9.vE7l5LX0oz6nluLbnMjszo28I_JBvF468gVKwGXA9QQ",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/user/all",
 							"protocol": "http",
@@ -612,33 +618,72 @@
 					"response": []
 				},
 				{
-					"name": "user_deactive",
+					"name": "admin_deactive",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3NTgzMjE2YzlkMDFkNTA1NWYwNjMiLCJpYXQiOjE2MjQ3MjY1Mjd9.biF4gqRW9rwiA578Fnnibj1I0cpH0qamdHoeLvaGHts",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/user/deactivate/60d7345ab6a406368b5f706f",
+							"raw": "http://localhost:3000/admin/deactivate/60d75df5531fce2e1c1fafcb",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"user",
+								"admin",
 								"deactivate",
-								"60d7345ab6a406368b5f706f"
+								"60d75df5531fce2e1c1fafcb"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "user_active",
+					"name": "admin_active",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3NTgzMjE2YzlkMDFkNTA1NWYwNjMiLCJpYXQiOjE2MjQ3MjY1Mjd9.biF4gqRW9rwiA578Fnnibj1I0cpH0qamdHoeLvaGHts",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/user/activate/60d7345ab6a406368b5f706f",
+							"raw": "http://localhost:3000/admin/activate/60d75df5531fce2e1c1fafcb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"activate",
+								"60d75df5531fce2e1c1fafcb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user/activate",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/user/activate",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -646,8 +691,65 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"activate",
-								"60d7345ab6a406368b5f706f"
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3NWRmNTUzMWZjZTJlMWMxZmFmY2IiLCJpYXQiOjE2MjQ3MjcwNjB9.XfJTharRd-6bXctQweZB5pMVDmjbIHSx-SRzrDC_cH4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"logout"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user/delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3NWRmNTUzMWZjZTJlMWMxZmFmY2IiLCJpYXQiOjE2MjQ3Mjk4NTN9.JirRWMfLWqESfshQcdcgmI_EYx6Zn0YF995eoxSpnHU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/user/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"delete"
 							]
 						}
 					},

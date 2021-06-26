@@ -19,8 +19,11 @@ const userSchema = new mongoose.Schema({
     accountStatus: { type: Boolean, default: false },
     activateCode: { type: String },
     address: { type: String },
-    userType: { type: String, required: true, enum: ['admin', 'user', 'general'] },
-    phone: { type: String },
+    userType: { type: String, required: true, enum: ['admin', 'user'] },
+    phone: { type: String , required: true, unique: true,
+        validate(value) {
+            if (!validator.isMobilePhone(value,'ar-EG' )) throw new Error('invalid phone')
+        }},
     userImage: { type: String },
 
     tokens: [
