@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "31283dba-8f7e-46d6-b3bc-2614dd674386",
+		"_postman_id": "a61842c0-0712-47ae-a95e-59f165406b98",
 		"name": "New Collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -438,6 +438,216 @@
 								"60d71de5654c8b65547dddf5",
 								"editGeneral_offer",
 								"60d71de5654c8b65547dddff"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"asmaa@moh.com\",\n    \"password\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_edit",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fname\":\"assss\",\n    \"lname\":\"mohhhh\",\n    \"password\":\"123456789\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/edit/60d7078738ad641fbb7bca5d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"edit",
+								"60d7078738ad641fbb7bca5d"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/delUser/60d6328d304eb72b72be6a34",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"delUser",
+								"60d6328d304eb72b72be6a34"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_single",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "id",
+								"value": "60d6328d304eb72b72be6a34",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/user/single/60d6f7311cfc98179b3dbbdc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"single",
+								"60d6f7311cfc98179b3dbbdc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_all",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fname\":\"asmaa\",\n    \"lname\":\"moh\",\n    \"email\":\"asmaa@moh.com\",\n    \"password\":\"123456\",\n    \"userType\":\"user\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_deactive",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/deactivate/60d7345ab6a406368b5f706f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"deactivate",
+								"60d7345ab6a406368b5f706f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_active",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/activate/60d7345ab6a406368b5f706f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"activate",
+								"60d7345ab6a406368b5f706f"
 							]
 						}
 					},
