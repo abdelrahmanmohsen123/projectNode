@@ -13,5 +13,10 @@ const catSchema = new mongoose.Schema({
     }
 }, { timestamps:true })
 
+catSchema.virtual('catItem',{
+    ref:'Items',
+    localField:'_id',
+    foreignField:'cat_id'
+})
 const Cats = mongoose.model('Cats', catSchema)
 module.exports = Cats

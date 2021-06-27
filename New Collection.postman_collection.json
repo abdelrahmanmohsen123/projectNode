@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "ffac0d83-559c-4c29-8045-8fe61a778755",
-		"name": "New Collection",
+		"_postman_id": "e2097486-2b40-43dd-8f19-c7650c5ce0f3",
+		"name": "New Collection Copy 2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -935,6 +935,145 @@
 								"cat",
 								"deleteCat",
 								"60d88dbfe147da6b4e36692e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "items",
+			"item": [
+				{
+					"name": "addItem",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ4YmQ3NzNhNjI1ZTk4ZDQxMWJkYjUiLCJpYXQiOjE2MjQ4MTcwMzB9.WKEzDtLj3uEBtiV8ho6h-aKl9OUnfKr6mrvhZVIaC64",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"lahma 6\",\r\n    \"price\":20,\r\n    \"cat_id\":\"60d8bdb33a625e98d411bdbd\",\r\n    \"size\":[\r\n        {\"name\":\"small\",\"price\":200},\r\n        {\"name\":\"large\",\"price\":300}\r\n    ],\r\n    \"description\":\"اي حاجه \",\r\n    \"offer_item\":[\r\n        {\"is_offer\":1,\"newPrice\":200,\"desc\":\"اشتري 3 خد واحده هديه\"}\r\n    ]\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/addItem",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"addItem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "showAllItems",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/showAllItems",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"showAllItems"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "showSingleItem",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/showItem/60d8c2feb99db27ea4e59198",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"showItem",
+								"60d8c2feb99db27ea4e59198"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteItem",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ4YmQ3NzNhNjI1ZTk4ZDQxMWJkYjUiLCJpYXQiOjE2MjQ4MTcwMzB9.WKEzDtLj3uEBtiV8ho6h-aKl9OUnfKr6mrvhZVIaC64",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/deleteItem/60d8c2feb99db27ea4e59198",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deleteItem",
+								"60d8c2feb99db27ea4e59198"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editItem",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ4YmQ3NzNhNjI1ZTk4ZDQxMWJkYjUiLCJpYXQiOjE2MjQ4MTcwMzB9.WKEzDtLj3uEBtiV8ho6h-aKl9OUnfKr6mrvhZVIaC64",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"lahma 99\",\r\n    \"price\":60,\r\n\r\n    \"size\":[\r\n        {\"name\":\"small\",\"price\":900},\r\n        {\"name\":\"large\",\"price\":600}\r\n    ],\r\n    \"description\":\"اي \",\r\n    \"offer_item\":[\r\n        {\"is_offer\":1,\"newPrice\":200,\"desc\":\"اشتري 3 خد واحده هديه\"}\r\n    ]\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/editItem/60d8c396dd341c8bc019a64a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"editItem",
+								"60d8c396dd341c8bc019a64a"
 							]
 						}
 					},

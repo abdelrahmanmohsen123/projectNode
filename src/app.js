@@ -10,7 +10,7 @@ const cartRoutes = require('../routes/cart.routes')
 
 // New logic
 const catRoutes = require('../routes/cats.routes')
-
+const itemRoutes = require('../routes/item.routes')
 
 
 const app = express()
@@ -22,6 +22,6 @@ app.use(cartRoutes)
 
 // New logic
 app.use(catRoutes)
-
+app.use(itemRoutes)
 
 module.exports = app
