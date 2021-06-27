@@ -33,6 +33,38 @@ edit catsname  -> done
 
 
 
+//// Orders 
+
+cart {
+    _id: ,
+    user_id,
+    cat_id,
+    meal_id,
+    addition_id,
+    offer_id,
+    quant,
+    cancel,
+} 
+
+order {
+    _id,
+    user_id,
+    total_price,
+    total_shipping,
+    tax,
+    receving_method [receipt_form_shop, delivery]
+    status [pending, accept, finsh, rfuce by user, refuse bu resturan, refuse by system]
+    message,
+    address,
+    payment_method [cash , visa]
+}
+
+user
+
+
+
+
+
 
 
 

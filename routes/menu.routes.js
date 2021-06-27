@@ -6,188 +6,33 @@ const Menu = require('../models/menu.model')
 
 const auth = require('../middleware/auth')
 
+const menuController = require('../controller/menu.controller')
+
 // Add categores 
-router.post('/menu/addCats', async (req, res) => {
-    try {
-        let menu = new Menu(req.body)
-        await menu.save()
-        res.status(200).send({
-            apiStatus: true,
-            menu: {menu},
-            message: `data inserted`
-        })
-    }
-    catch(error) {
-        res.status(500).send({
-            apiStatus: false,
-            menu: error,
-            message: `Check data to insert`
-        })
-    }
-})
+router.post('/menu/addCats', auth.adminAuth ,menuController.addMainCat)
 
 // Show all categores
-router.post('/menu/displayCats', async (req, res) => {
-    try {
-        let menu = await Menu.find()
-        
-        res.status(200).send({
-            apiStatus: true,
-            menu: {menu},
-            message: `All cats`
-        })
-    }
-    catch(error) {
-        res.status(500).send({
-            apiStatus: false,
-            menu: error,
-            message: `Not found data`
-        })
-    }
-})
+router.post('/menu/displayCats', menuController.displayAllMainCats)
+
+// Show single cat
+router.get('/menu/showCat/:id', menuController.displySingleCat)
 
 // Edit cats by id (edit category name)
-router.patch('/menu/editCats/:id', async(req, res) => {
-    
-    try {
-        id = req.params.id
-        
-        let data = await Menu.findById(id)
-        
-        let objkeys = Object.keys(req.body)
-        
+router.patch('/menu/editCats/:id', auth.adminAuth, menuController.editMainNameCat)
 
-        let allowUpdate = ['catName']
-        let validUpdate = objkeys.every(cat => allowUpdate.includes(cat))
-        
-        if(!validUpdate) res.status(500).send({
-            apiStatus: false,
-            message: `Not allowed update ${allowUpdate} only`
-        })
-        
-        objkeys.forEach(cat => data[cat] = req.body[cat])
-        
-        await data.save()
-        res.status(200).send({
-            apiStatus: true,
-            message: `Updated success ${allowUpdate}`
-        })
-    }
-    catch(error) {
-        res.status(500).send({
-            apiStatus: false,
-            message: `Check data to update`
-        })
-    }
-})
+// Delete single cat 
+router.delete('/menu/deleteCat/:id', auth.adminAuth, menuController.delSingleCat)
+
 
 // Add meal in cats testing
-router.post('/menu/:id/addMeal', async(req, res) => {
-    try {
-        let id = req.params.id
-        let data = req.body
-        let category = await Menu.findById(id)
-        
-         await category.meals.push(data)
-        await category.save()
-        res.status(200).send({
-            apiStatus: true,
-            message: `done`
-    })
-    }
-    catch(e){
-        res.status(500).send({
-            apiStatus: false,
-            result: e.message,
-            message: `not found`
-        })
-    }
-    
-})
-//add adddition
-router.post('/menu/:id/add_addition', async(req,res)=>{
-    try{
-        let id = req.params.id
-        let data = req.body
-        //console.log(typeof data)
-        let category = await Menu.findById(id)
-        await category.additions.push(data) 
-        await category.save()
-        res.status(200).send({
-            apiStatus: true,
-            message: `done`
-    })
-    }
-    catch(e){
-        res.status(500).send({
-            apiStatus: false,
-            result: e.message,
-            message: `not found`
-        })
-    }
-})
-//add general_offers
-router.post('/menu/:id/addgeneral_offers', async(req,res)=>{
-    try{
-        let id = req.params.id
-        let data = req.body
-        let category = await Menu.findById(id)
-        await category.general_offers.push(data) 
-        await category.save()
-        res.status(200).send({
-            apiStatus: true,
-            message: `done`
-    })
-    }
-    catch(e){
-        res.status(500).send({
-            apiStatus: false,
-            result: e.message,
-            message: `not found`
-        })
-    }
-})
-//show single cat
-router.get('/menu/showCat/:id',async(req,res)=>{
-    try{
-        let id = req.params.id
-        let data = await Menu.findById(id)
-        if(data==null) throw new Error ()
-        res.status(200).send({
-            apiStatus: true,
-            data: data,
-            message: `done`
-    })
-    }
-    catch(e){
-        res.status(500).send({
-            apiStatus: false,
-            message: `not found`
-        })
-    }
-    
-})
-//delete single cat 
-router.delete('/menu/deleteCat/:id',async(req,res)=>{
+router.post('/menu/:id/addMeal', auth.adminAuth, menuController.addMealInCat)
 
-    try{
-        let id = req.params.id
-        let data = await Menu.findById(id)
-        if(data==null) throw new Error ()
-        await data.remove()
-        res.status(200).send({
-            apiStatus: true,
-            message: `deleted successful`
-    })
-    }
-    catch(e){
-        res.status(500).send({
-            apiStatus: false,
-            message: `not found`
-        })
-    }
+// Add addition
+router.post('/menu/:id/add_addition', auth.adminAuth, menuController.addGlobalAddition)
 
-})
+// Add general_offers
+router.post('/menu/:id/addgeneral_offers', auth.adminAuth, menuController.addGeneralOffers)
+
 // show single meal
 router.get('/menu/cat/:id/showSingleMeal/:meal_id',async(req,res)=>{
     try{
@@ -482,4 +327,6 @@ router.delete('/menu/cat/:id/deletegeneral_offers/:general_offers_id',async(req,
     }
     
 })
+
+
 module.exports = router

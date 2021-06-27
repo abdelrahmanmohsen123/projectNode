@@ -8,36 +8,45 @@ const auth = require('../middleware/auth')
 
 router.post('/user/register', async(req, res) => {
     try {
-        let user = new User(req.body)
-        await user.save()
+        let data = new User(req.body)
+        for(let val in data) {
+            console.log(data[val])
+        }
+        keyAllData = Object.keys(data)
+        console.log(await data.save())
+        
+        
+        console.log(keyAllData)
+        // res.send(data)
         res.status(200).send({
             status: true,
-            message: 'user inserted',
-            userData:  user 
+            userData: {reg : data, show: data['_id']},
+            message: 'user inserted'
         })
 
     } catch (e) {
         res.status(500).send({
             status: false,
-            error: e.message,
+            userData: e.message,
             message: 'data error to register'
         })
     }
 })
 
-router.get('/user/all', async(req, res) => {
+router.post('/user/all', async(req, res) => {
     try {
-        const allUsers = await User.find()
+        let allUsers = await User.find()
+        console.log(allUsers)
         res.status(200).send({
             status: true,
-            data: allUsers,
+            allUsers: {allUsers},
             message : allUsers
         })
         
     } catch (e) {
         res.status(500).send({
             status: false,
-            error: e,
+            dataAll: e,
             message: 'error in show data'
         })
     }
@@ -87,7 +96,7 @@ router.delete('/user/delUser/:id', auth.adminAuth,async(req, res) => {
     }
 })
 
-router.delete('/user/delete', auth.authMe, async(req,res)=>{
+router.delete('/user/delete', auth.userAuth, async(req,res)=>{
     try{    
         await req.user.remove()
         await user.save()
@@ -138,13 +147,13 @@ router.post('/user/login', async(req, res) => {
         let token = await user.generateAuthToken()
         res.status(200).send({
             status: true,
-            data: {token,user},
+            userData: {token,user},
             message: "logged in"
         })
     } catch (error) {
         res.status(500).send({
             status: false,
-            data: error.message,
+            userData: error.message,
             message: "error in log in"
         })
     }
@@ -186,7 +195,7 @@ router.patch('/admin/deactivate/:id',auth.adminAuth ,async(req, res) => {
     }
 })
 
-router.patch('/user/activate', auth.authMe, async(req,res)=>{
+router.patch('/user/activate', auth.userAuth, async(req,res)=>{
     try{
         req.user.accountStatus=true
         await req.user.save()
