@@ -7,20 +7,21 @@ const User = require('../models/users.model')
 const auth = require('../middleware/auth')
 
 router.post('/user/register', async(req, res) => {
+    let data = new User(req.body)
     try {
-        let data = new User(req.body)
-        for(let val in data) {
-            console.log(data[val])
-        }
-        keyAllData = Object.keys(data)
-        console.log(await data.save())
+        
+        // for(let val in data) {
+        //     console.log(data[val])
+        // }
+        // keyAllData = Object.keys(data)
+        await data.save()
         
         
-        console.log(keyAllData)
+        // console.log(keyAllData)
         // res.send(data)
         res.status(200).send({
             status: true,
-            userData: {reg : data, show: data['_id']},
+            userData: data,
             message: 'user inserted'
         })
 

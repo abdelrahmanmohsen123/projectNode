@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema({
 
 //not show password
 userSchema.methods.toJSON = function() {
-    let user = this.toObject
+    let user = this.toObject() // *****
     itemsHidden = ['passsword']
     itemsHidden.forEach(item => {
         delete user[item]
@@ -47,8 +47,8 @@ userSchema.methods.toJSON = function() {
 }
 
 // Hashing password
-userSchema.pre('save', async function(next) {
-    try {
+userSchema.pre('save', async function() {
+    // ry {
         user = this
 
         if (!this.__v) {
@@ -60,10 +60,10 @@ userSchema.pre('save', async function(next) {
         if (user.isModified('password')) {
             user.password = await bcrypt.hash(user.password, 8)
         }
-        next()
-    } catch (error) {
-        console.log(error.message)
-    }
+        // return user
+    // } catch (error) {
+    //     console.log(error.message)
+    // }
 })
 
 //addToken

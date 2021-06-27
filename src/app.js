@@ -8,12 +8,20 @@ const menuRoutes = require('../routes/menu.routes')
 const cartRoutes = require('../routes/cart.routes')
 
 
+// New logic
+const catRoutes = require('../routes/cats.routes')
+
+
+
 const app = express()
 app.use(express.json())
 
 app.use(userRoutes)
 app.use(menuRoutes)
 app.use(cartRoutes)
+
+// New logic
+app.use(catRoutes)
 
 
 module.exports = app
