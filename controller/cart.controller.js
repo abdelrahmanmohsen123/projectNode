@@ -1,23 +1,19 @@
 // To used model file
-const Items = require('../models/item.model')
+const Cart = require('../models/cart.model')
 
-// Add main item 
-const addItem = async (req, res) => {   
+// Add main Cart 
+const addMainCart = async (req, res) => {
     
     try {
-         
-
-
-        let items = await new Items({
+        let cart = await new Cart({
             ...req.body,
             // 'cat_id':req.cats._id,
         })
-        // console.log(req.cats)
-
-        await items.save()
+       
+        await cart.save()
         res.status(200).send({
             apiStatus: true,
-            items: {items},
+            cart: {cart},
             message: `item inserted`
         })
     }
@@ -30,25 +26,24 @@ const addItem = async (req, res) => {
     }
 }
 
-// Edit name of main category
-const editItem = async(req, res) => {
+// Edit name of main Cart
+const editCart = async(req, res) => {
     try {
         id = req.params.id
-        let data = await Items.findById(id)
+        let data = await Cart.findById(id)
         let objkeys = Object.keys(req.body)
         if(objkeys.length == 0)  throw new Error ()
-        let allowUpdate = ['name','image','price','description','size','offer_item']
-        let validUpdate = objkeys.every(item => allowUpdate.includes(item))
+        let allowUpdate = ['quant']
+        let validUpdate = objkeys.every(cart => allowUpdate.includes(cart))
         
         if(!validUpdate) res.status(500).send({
             apiStatus: false,
             message: `Not allowed update ${allowUpdate} only`
         })
-        objkeys.forEach(item => data[item] = req.body[item])
+        objkeys.forEach(cart => data[cart] = req.body[cart])
         await data.save()
         res.status(200).send({
             apiStatus: true,
-            data:data,
             message: `Updated success ${allowUpdate}`
         })
     }
@@ -60,38 +55,19 @@ const editItem = async(req, res) => {
     }
 }
 
- //Display all main items
-const showAllItems = async (req, res) => {
+// Show single main cart
+const displySinglecart = async (req,res) => {
     try {
-        let items = await Items.find()
-        if(!items) throw new Error (`Data not founded`)
-        res.status(200).send({
-            apiStatus: true,
-            items: {items},
-            message: `All data ITEMS`
-        })
-    }
-    catch(error) {
-        res.status(500).send({
-            apiStatus: false,
-            result: error,
-            message: `Not found! Check data`
-        })
-    }
-}
 
-//  Show single main item
-const showSingleItem = async (req,res) => {
-    try {
         let id = req.params.id
-        let data = await Items.findById(id)
+        let data = await Cart.findById(id)
 
-        if(!data) throw new Error (`Data not founded of items`)
+        if(!data) throw new Error (`Data not founded of Cart`)
 
         res.status(200).send({
             apiStatus: true,
-            ItemSingle: {data},
-            message: `Single Item`
+            CartSingle: {data},
+            message: `Single Cart`
         })
     }
     catch(error){
@@ -104,15 +80,15 @@ const showSingleItem = async (req,res) => {
     
 }
 
- //Delete single cat
-const delSingleItem = async (req, res) => {
+// Delete single cart
+const delSingleCart = async (req, res) => {
 
     try {
         
         let id = req.params.id
-        let data = await Items.findById(id)
+        let data = await Cart.findById(id)
 
-        if(!data) throw new Error (`Data not founded of category `)
+        if(!data) throw new Error (`Data not founded of Cart `)
         
         await data.remove()
 
@@ -134,14 +110,9 @@ const delSingleItem = async (req, res) => {
 
 // To exports function controller
 module.exports = {
-    // Main category
-    addItem,
-    showAllItems,
-    showSingleItem,
-    delSingleItem,
-    editItem
-    // editMainNameCat,
-    // displayAllMainCats,
-    // displySingleCat,
-    // delSingleCat,
+    // Main Cart
+    addMainCart,
+    displySinglecart,
+    editCart,
+    delSingleCart
 }

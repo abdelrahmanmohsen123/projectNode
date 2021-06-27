@@ -18,5 +18,27 @@ catSchema.virtual('catItem',{
     localField:'_id',
     foreignField:'cat_id'
 })
+
+catSchema.pre('remove', async function (req, res, next){
+    try {
+        let cats = this
+        Cats.deleteMany({cat_id:cats._id})
+        next()
+        res.status(200).send({
+            apiStatus: true,
+            message: `Deleted done`
+        })
+    }
+    catch(error){
+        res.status(500).send({
+            apiStatus: false,
+            result: error.message,
+            message: `Deleted done`
+        })
+        
+    }
+})
+
 const Cats = mongoose.model('Cats', catSchema)
+
 module.exports = Cats

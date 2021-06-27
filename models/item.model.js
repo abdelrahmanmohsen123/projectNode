@@ -42,6 +42,11 @@ const itemSchema = new mongoose.Schema({
 
 }, { timestamps:true })
 
+itemSchema.virtual('cartItem',{
+    ref:'Cart',
+    localField:'_id',
+    foreignField:'item_id'
+})
 
 
 

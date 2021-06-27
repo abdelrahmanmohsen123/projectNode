@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "e2097486-2b40-43dd-8f19-c7650c5ce0f3",
-		"name": "New Collection Copy 2",
+		"_postman_id": "3f34bda6-4c3b-4d28-8264-31b7ea8bf68a",
+		"name": "New Collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -1074,6 +1074,114 @@
 							"path": [
 								"editItem",
 								"60d8c396dd341c8bc019a64a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cart",
+			"item": [
+				{
+					"name": "addcarts",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3OTZiMjUwMGJlYTJmZjA2ZWJlNDciLCJpYXQiOjE2MjQ4MjE4MTJ9.Tu6pr8lWEcZWUc-8vGNAV0KR9HhChYtwTH9i5Rpa0rA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n    {\n        \"item_id\":\"60d88dcae147da6b4e366931\",\n        \"quant\": 1,\n        \"cancel\": false\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/addcarts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"addcarts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletecart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/deletecart/60d7bd29ac490a49bd904b61",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deletecart",
+								"60d7bd29ac490a49bd904b61"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editcart",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"quant\": 3,\n        \"cancel\": true\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/editcart/60d7bd29ac490a49bd904b61",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"editcart",
+								"60d7bd29ac490a49bd904b61"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "showcart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/showcart/60d7c3ca9954cd4ddeb3b2c4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"showcart",
+								"60d7c3ca9954cd4ddeb3b2c4"
 							]
 						}
 					},
