@@ -98,7 +98,7 @@ const displySingleCat = async (req,res) => {
 
 // Delete single cat
 const delSingleCat = async (req, res) => {
-
+    
     try {
         
         let id = req.params.id

@@ -5,6 +5,7 @@ const cartSchema = new mongoose.Schema({
     item_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
+        unique: true,
         ref:'Items' // ------ //
     },
     quant: {
@@ -17,7 +18,11 @@ const cartSchema = new mongoose.Schema({
     // }
 }, {timestamps: true})
 
-
+cartSchema.virtual('order',{
+    ref:'Order',
+    localField:'_id',
+    foreignField:'cart_id'
+})
 const Cart = mongoose.model('Cart', cartSchema)
 
 module.exports = Cart

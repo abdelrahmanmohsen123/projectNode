@@ -11,7 +11,7 @@ const menuRoutes = require('../routes/menu.routes')
 const catRoutes = require('../routes/cats.routes')
 const itemRoutes = require('../routes/item.routes')
 const cartRoutes = require('../routes/cart.routes')
-
+const orderRoutes = require('../routes/order.routers')
 
 
 const app = express()
@@ -24,6 +24,6 @@ app.use(menuRoutes)
 app.use(catRoutes)
 app.use(itemRoutes)
 app.use(cartRoutes)
-
+app.use(orderRoutes)
 
 module.exports = app

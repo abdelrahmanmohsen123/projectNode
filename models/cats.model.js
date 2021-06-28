@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-
+const Items = require('../models/item.model')
 const catSchema = new mongoose.Schema({
     catName: { 
         type: String, 
@@ -19,10 +19,11 @@ catSchema.virtual('catItem',{
     foreignField:'cat_id'
 })
 
+
 catSchema.pre('remove', async function (req, res, next){
     try {
         let cats = this
-        Cats.deleteMany({cat_id:cats._id})
+        await Items.deleteMany({cat_id:cats._id})
         next()
         res.status(200).send({
             apiStatus: true,
