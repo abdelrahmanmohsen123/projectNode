@@ -1,6 +1,6 @@
 // To used model file
 const Cats = require('../models/cats.model')
-
+const Items = require('../models/item.model')
 // Add main category 
 const addMainCat = async (req, res) => {
     
@@ -98,22 +98,15 @@ const displySingleCat = async (req,res) => {
 
 // Delete single cat
 const delSingleCat = async (req, res) => {
-    
     try {
-        
         let id = req.params.id
-        let data = await Cats.findById(id)
-
-        if(!data) throw new Error (`Data not founded of category `)
-        
-        await data.remove()
-
+       await Items.deleteMany({cat_id:id})
+        await Cats.findByIdAndDelete(id)
         res.status(200).send({
             apiStatus: true,
             message: `Deleted done`
         })
     }
-
     catch(error){
         res.status(500).send({
             apiStatus: false,

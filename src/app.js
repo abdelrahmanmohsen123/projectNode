@@ -1,6 +1,6 @@
 const express = require('express')
 require('../dbconnection/db')
-
+const cors= require('cors')
 const userRoutes = require('../routes/user.routes')
 
 const menuRoutes = require('../routes/menu.routes')
@@ -16,7 +16,7 @@ const orderRoutes = require('../routes/order.routers')
 
 const app = express()
 app.use(express.json())
-
+app.use(cors())
 app.use(userRoutes)
 app.use(menuRoutes)
 
