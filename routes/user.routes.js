@@ -9,16 +9,7 @@ const auth = require('../middleware/auth')
 router.post('/user/register', async(req, res) => {
     let data = new User(req.body)
     try {
-        
-        // for(let val in data) {
-        //     console.log(data[val])
-        // }
-        // keyAllData = Object.keys(data)
         await data.save()
-        
-        
-        // console.log(keyAllData)
-        // res.send(data)
         res.status(200).send({
             status: true,
             userData: data,
@@ -98,7 +89,7 @@ router.delete('/user/delUser/:id', auth.adminAuth,async(req, res) => {
 })
 
 router.delete('/user/delete', auth.userAuth, async(req,res)=>{
-    try{    
+    try {    
         await req.user.remove()
         await user.save()
         res.status(200).send({

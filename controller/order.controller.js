@@ -54,6 +54,7 @@ const editOrder = async(req, res) => {
         })
     }
 }
+
 // cancel order
 const cancelOrder = async(req,res)=>{
     try{
@@ -72,6 +73,9 @@ const cancelOrder = async(req,res)=>{
         })
     }
 }
+
+
+// Show order ?
 
 // To exports function controller
 module.exports = {

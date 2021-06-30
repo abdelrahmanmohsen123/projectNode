@@ -1,9 +1,14 @@
 // To used model file
+const Items = require('../models/item.model')
+
 const Cart = require('../models/cart.model')
 
 // Add main Cart 
-const addMainCart = async (req, res) => {
+const addMainCart = async function (req, res)  {
+
     
+    let items = Items.findById(Items['_id'])
+    console.log(items)
     try {
         let cart = await new Cart({
             ...req.body,

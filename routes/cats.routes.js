@@ -11,7 +11,7 @@ const catController = require('../controller/cats.controller')
 router.post('/cat/addCats', auth.adminAuth ,catController.addMainCat)
 
 // Show all categores
-router.post('/cat/displayCats', catController.displayAllMainCats)
+router.get('/cat/displayCats', catController.displayAllMainCats)
 
 // Show single cat
 router.get('/cat/showCat/:id', catController.displySingleCat)
