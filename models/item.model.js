@@ -18,7 +18,7 @@ const itemSchema = new mongoose.Schema({
         unique: [true, 'The name of this item was established']
     },
     description:{type: String},
-    image:{type: String},
+    itemImage:{type: String},
     size:[
         {
             name:{
@@ -45,7 +45,7 @@ const itemSchema = new mongoose.Schema({
 itemSchema.virtual('cartItem',{
     ref:'Cart',
     localField:'_id',
-    foreignField:'item_id'
+    foreignField:'cart.item_id'
 })
 
 

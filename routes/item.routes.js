@@ -21,6 +21,4 @@ router.patch('/editItem/:id', auth.adminAuth, itemController.editItem)
 
 // Delete single item
 router.delete('/deleteItem/:id', auth.adminAuth, itemController.delSingleItem)
-
-
 module.exports = router

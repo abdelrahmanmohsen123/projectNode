@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "e527a1cf-c179-4228-be34-a515d70cd1a3",
-		"name": "New Collection",
+		"_postman_id": "e2097486-2b40-43dd-8f19-c7650c5ce0f3",
+		"name": "New Collection Copy 2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -445,7 +445,7 @@
 							"query": [
 								{
 									"key": "",
-									"value": null
+									"value": ""
 								}
 							]
 						}
@@ -606,7 +606,7 @@
 				{
 					"name": "user_all",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
@@ -719,10 +719,19 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjYzFhZDExZTNkMzYzODRjYjIyMzIiLCJpYXQiOjE2MjUwODAyNzh9.jUf-NjDgnbD_sBQHrbQD9sW_z7il6e8BzpNTjeMW3O8",
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"activateCode\":\"0.35506425915863415\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:3000/user/activate",
 							"protocol": "http",
@@ -777,7 +786,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3NWRmNTUzMWZjZTJlMWMxZmFmY2IiLCJpYXQiOjE2MjQ3Mjk4NTN9.JirRWMfLWqESfshQcdcgmI_EYx6Zn0YF995eoxSpnHU",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjYmViMjQ3YTNmMjMxNThhZTAxZDQiLCJpYXQiOjE2MjUwODA3OTh9.51YRW_VX8GR0GKpArh5V7qlRDKx_yHjl4b3jXcs1FOo",
 								"type": "text"
 							}
 						],
@@ -795,6 +804,31 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "log out ALL",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjYmI2ZWE0MzY3NWFhNTQzYmRlOWUiLCJpYXQiOjE2MjUwODI0MzZ9.1uHH7uyuEGEf_r5vnMsanEuwqtnnhoMEcbi3p6t0SX4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/logoutAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"logoutAll"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -808,13 +842,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3NTgzMjE2YzlkMDFkNTA1NWYwNjMiLCJpYXQiOjE2MjQ3MzAyNDJ9.vE7l5LX0oz6nluLbnMjszo28I_JBvF468gVKwGXA9QQ",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3OTZiMjUwMGJlYTJmZjA2ZWJlNDciLCJpYXQiOjE2MjQ4MDQ1NDJ9.hgyWJA1ucUq787tdeX9Is_jo9KMB1D8qeCVgoQwXuH8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"catName\": \"cat 1\"\n}",
+							"raw": "{\n    \"catName\": \"cat 3\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -822,12 +856,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/cat/addCats",
+							"raw": "http://localhost:300/cat/addCats",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "300",
 							"path": [
 								"cat",
 								"addCats"
@@ -839,8 +873,14 @@
 				{
 					"name": "ShowAllCats",
 					"request": {
-						"method": "POST",
-						"header": [],
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjYmI2ZWE0MzY3NWFhNTQzYmRlOWUiLCJpYXQiOjE2MjUwODM5NDJ9.wysZ9zV2asKwI8rYGxpBSjtF7Wo3mdrrpPZ8-dBpP6o",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/cat/displayCats",
 							"protocol": "http",
@@ -920,12 +960,12 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3NTgzMjE2YzlkMDFkNTA1NWYwNjMiLCJpYXQiOjE2MjQ3MzAyNDJ9.vE7l5LX0oz6nluLbnMjszo28I_JBvF468gVKwGXA9QQ",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3OTZiMjUwMGJlYTJmZjA2ZWJlNDciLCJpYXQiOjE2MjQ4MDQ1NDJ9.hgyWJA1ucUq787tdeX9Is_jo9KMB1D8qeCVgoQwXuH8",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/cat/deleteCat/60d8fed17928a9313cbbdc49",
+							"raw": "http://localhost:3000/cat/deleteCat/60d88dbfe147da6b4e36692e",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -934,7 +974,7 @@
 							"path": [
 								"cat",
 								"deleteCat",
-								"60d8fed17928a9313cbbdc49"
+								"60d88dbfe147da6b4e36692e"
 							]
 						}
 					},
@@ -952,13 +992,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3NTgzMjE2YzlkMDFkNTA1NWYwNjMiLCJpYXQiOjE2MjQ3MzAyNDJ9.vE7l5LX0oz6nluLbnMjszo28I_JBvF468gVKwGXA9QQ",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ4YmQ3NzNhNjI1ZTk4ZDQxMWJkYjUiLCJpYXQiOjE2MjQ4MTcwMzB9.WKEzDtLj3uEBtiV8ho6h-aKl9OUnfKr6mrvhZVIaC64",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"lahma3\",\r\n    \"price\":20,\r\n    \"cat_id\":\"60d8fed67928a9313cbbdc4c\",\r\n    \"size\":[\r\n        {\"name\":\"small\",\"price\":200},\r\n        {\"name\":\"large\",\"price\":300}\r\n    ],\r\n    \"description\":\"اي حاجه \",\r\n    \"offer_item\":[\r\n        {\"is_offer\":1,\"newPrice\":200,\"desc\":\"اشتري 3 خد واحده هديه\"}\r\n    ]\r\n\r\n}",
+							"raw": "{\r\n    \"name\":\"lahma 6\",\r\n    \"price\":20,\r\n    \"cat_id\":\"60d8bdb33a625e98d411bdbd\",\r\n    \"size\":[\r\n        {\"name\":\"small\",\"price\":200},\r\n        {\"name\":\"large\",\"price\":300}\r\n    ],\r\n    \"description\":\"اي حاجه \",\r\n    \"offer_item\":[\r\n        {\"is_offer\":1,\"newPrice\":200,\"desc\":\"اشتري 3 خد واحده هديه\"}\r\n    ]\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

@@ -69,6 +69,18 @@ user
 
 
 
+////////// doing Today 
+
+----->checking for all api from user to order
+
+------>checking relation between item and cat and cart and order
+
+------>api for cancel and refuse from user and rest  from status (pending) 
+
+----->api for finish order from rest
+
+----->delete cart when finish  order 
+
 
 
 

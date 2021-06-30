@@ -7,18 +7,22 @@ const Cart = require('../models/cart.model')
 const addMainCart = async function (req, res)  {
 
     
-    let items = Items.findById(Items['_id'])
-    console.log(items)
+    // let items = Items.findById(Items['_id'])
+    // console.log(items)
     try {
         let cart = await new Cart({
             ...req.body,
             // 'cat_id':req.cats._id,
         })
-       
+        // if(cart.length!=0){
+        //    await cart.push(req.body)
+        // }
+
+       console.log(cart)
         await cart.save()
         res.status(200).send({
             apiStatus: true,
-            cart: {cart},
+            cart: cart,
             message: `item inserted`
         })
     }
@@ -31,14 +35,51 @@ const addMainCart = async function (req, res)  {
     }
 }
 
+ const addMaelToCart = async function (req, res)  {
+
+    
+     // let items = Items.findById(Items['_id'])
+    // console.log(items)
+    try {
+        let cart_id=req.body.cart_id
+        let cart = await Cart.findById(cart_id)
+        
+       
+   // let item ={item_id:req.body.cart.item_id,quantity:req.body.cart.quantity}
+        
+        console.log(cart.cart)
+
+        await cart.cart.push({item_id:req.body.cart.item_id,quantity:req.body.cart.quantity})
+
+        // if(cart.length!=0){
+        //    await cart.push(req.body)
+        // }
+
+       console.log(cart)
+        await cart.save()
+        res.status(200).send({
+            apiStatus: true,
+            cart: cart,
+            message: `item inserted to card`
+        })
+    }
+    catch(error) {
+        res.status(500).send({
+            apiStatus: false,
+            result: error.message,
+            message: `Check data to insert`
+        })
+    }
+}
 // Edit name of main Cart
 const editCart = async(req, res) => {
     try {
         id = req.params.id
         let data = await Cart.findById(id)
+        console.log(data)
         let objkeys = Object.keys(req.body)
         if(objkeys.length == 0)  throw new Error ()
-        let allowUpdate = ['quant']
+        let allowUpdate = ['cart']
         let validUpdate = objkeys.every(cart => allowUpdate.includes(cart))
         
         if(!validUpdate) res.status(500).send({
@@ -119,5 +160,6 @@ module.exports = {
     addMainCart,
     displySinglecart,
     editCart,
-    delSingleCart
+    delSingleCart,
+     addMaelToCart
 }

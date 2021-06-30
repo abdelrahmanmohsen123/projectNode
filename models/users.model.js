@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
         }
     },
     userImage: { type: String },
-
+    
     tokens: [
         { token: { type: String } }
     ]

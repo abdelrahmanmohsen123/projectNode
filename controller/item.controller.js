@@ -1,19 +1,34 @@
 // To used model file
+const Cats = require('../models/cats.model')
 const Items = require('../models/item.model')
-
+const multer= require('multer')
+const fs= require('fs')
+///// upload photo
+// imgname = ''
+// let storage = multer.diskStorage({
+//     destination: function(req,res,cb) {cb(null, 'itemImage')},
+//     filename: function(req,file, cb){
+//         imgname = Date.now()+'.'+(file.originalname.split('.').pop())
+//         cb(null, imgname)
+//     }
+// })
+// let upload = multer({storage: storage})
 // Add main item 
-const addItem = async (req, res) => {   
+const addItem = async (req, res) => {      
     
+   
     try {
-         
-
-
+        let cat= await Cats.findById(req.body.cat_id)
+        if(cat==null) throw new Error('not found category') 
         let items = await new Items({
             ...req.body,
-            // 'cat_id':req.cats._id,
+            //  'cat_id':req.cats._id,
         })
+        console.log(items)
+        
+        // upload.single('itemImage')
         // console.log(req.cats)
-
+        items.itemImage =imgname
         await items.save()
         res.status(200).send({
             apiStatus: true,
@@ -29,7 +44,6 @@ const addItem = async (req, res) => {
         })
     }
 }
-
 // Edit name of main category
 const editItem = async(req, res) => {
     try {
@@ -103,7 +117,6 @@ const showSingleItem = async (req,res) => {
     }
     
 }
-
  //Delete single cat
 const delSingleItem = async (req, res) => {
 
