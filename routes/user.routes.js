@@ -5,26 +5,26 @@ const router = new express.Router()
 const User = require('../models/users.model')
 
 const auth = require('../middleware/auth')
-const multer= require('multer')
-const fs= require('fs')
+const multer = require('multer')
+const fs = require('fs')
 
 
 ///// upload photo
 imgname = ''
 let storage = multer.diskStorage({
-    destination: function(req,res,cb) {cb(null, 'images')},
-    filename: function(req,file, cb){
-        imgname = Date.now()+'.'+(file.originalname.split('.').pop())
+    destination: function(req, res, cb) { cb(null, 'images') },
+    filename: function(req, file, cb) {
+        imgname = Date.now() + '.' + (file.originalname.split('.').pop())
         cb(null, imgname)
     }
 })
-let upload = multer({storage: storage})
-/// register user
-router.post('/user/register',upload.single('userImage'), async(req, res) => {
+let upload = multer({ storage: storage })
+    /// register user
+router.post('/user/register', upload.single('userImage'), async(req, res) => {
     let data = new User(req.body)
-    try {   
-          data.userImage =imgname
-          data.activateCode=Math.random()
+    try {
+        data.userImage = imgname
+        data.activateCode = Math.random()
         await data.save()
 
         res.status(200).send({
@@ -48,11 +48,11 @@ router.get('/user/all', async(req, res) => {
         let allUsers = await User.find()
         res.status(200).send({
             status: true,
-            message : "all user are",
+            message: "all user are",
             allUsers: allUsers,
-           
+
         })
-        
+
     } catch (e) {
         res.status(500).send({
             status: false,
@@ -64,11 +64,11 @@ router.get('/user/all', async(req, res) => {
 })
 
 //get single user
-router.get('/user/single/:id',auth.adminAuth ,async(req, res) => {
+router.get('/user/single/:id', auth.adminAuth, async(req, res) => {
     try {
         let user_id = req.params.id
         let showUser = await User.findById(user_id)
-        //console.log(showUser)
+            //console.log(showUser)
         if (!showUser) return res.status(500).send({
             apiStatus: false,
             result: error,
@@ -88,7 +88,7 @@ router.get('/user/single/:id',auth.adminAuth ,async(req, res) => {
 })
 
 //delete acc by admin
-router.delete('/user/delUser/:id', auth.adminAuth,async(req, res) => {
+router.delete('/user/delUser/:id', auth.adminAuth, async(req, res) => {
     try {
         let id = req.params.id
         console.log(id)
@@ -109,9 +109,9 @@ router.delete('/user/delUser/:id', auth.adminAuth,async(req, res) => {
 
 
 //delete acc by user
-router.delete('/user/delete', auth.userAuth, async(req,res)=>{
-    try {    
-        
+router.delete('/user/delete', auth.userAuth, async(req, res) => {
+    try {
+
         await req.user.remove()
         res.status(200).send({
             apiStatus: true,
@@ -125,9 +125,9 @@ router.delete('/user/delete', auth.userAuth, async(req,res)=>{
         })
     }
 })
-router.patch('/user/edit/:id',upload.single('userImage'),auth.generalAuth ,async(req, res) => {
+router.patch('/user/edit/:id', upload.single('userImage'), auth.generalAuth, async(req, res) => {
     reqEdit = Object.keys(req.body)
-    editItems = ['fname', 'lname', 'password','userImage','phone']
+    editItems = ['fname', 'lname', 'password', 'userImage', 'phone']
     allowedEdit = reqEdit.every(item => editItems.includes(item))
     if (!allowedEdit) return res.status(500).send({
         status: false,
@@ -137,7 +137,7 @@ router.patch('/user/edit/:id',upload.single('userImage'),auth.generalAuth ,async
     try {
         id = req.params.id
         data = await User.findById(id)
-        data.userImage =imgname
+        data.userImage = imgname
         reqEdit.forEach(update => {
             data[update] = req.body[update]
         })
@@ -159,24 +159,24 @@ router.patch('/user/edit/:id',upload.single('userImage'),auth.generalAuth ,async
 router.post('/user/login', async(req, res) => {
     try {
         let user = await User.logMeOn(req.body.email, req.body.password)
-        
+
         //console.log(user)
         let token = await user.generateAuthToken()
         res.status(200).send({
             status: true,
-            userData: {token,user},
+            userData: { token, user },
             message: "logged in"
         })
     } catch (error) {
         res.status(500).send({
             status: false,
-            userData: error.message,
+            err: error.message,
             message: "error in log in"
         })
     }
 })
 
-router.patch('/admin/activate/:id', auth.adminAuth,async(req, res) => {
+router.patch('/admin/activate/:id', auth.adminAuth, async(req, res) => {
     try {
         id = req.params.id
         user = await User.findById(id)
@@ -194,7 +194,7 @@ router.patch('/admin/activate/:id', auth.adminAuth,async(req, res) => {
     }
 })
 
-router.patch('/admin/deactivate/:id',auth.adminAuth ,async(req, res) => {
+router.patch('/admin/deactivate/:id', auth.adminAuth, async(req, res) => {
     try {
         id = req.params.id
         user = await User.findById(id)
@@ -214,13 +214,13 @@ router.patch('/admin/deactivate/:id',auth.adminAuth ,async(req, res) => {
 
 
 /// activate user by rand code (need to func email or phone to activate code)
-router.patch('/user/activate', auth.userAuth, async(req,res)=>{
-    try{
-        let code =req.body.activateCode
-        if(code==req.user.activateCode){
-            req.user.accountStatus=true
+router.patch('/user/activate', auth.userAuth, async(req, res) => {
+    try {
+        let code = req.body.activateCode
+        if (code == req.user.activateCode) {
+            req.user.accountStatus = true
         }
-      
+
 
         await req.user.save()
         res.status(200).send({
@@ -237,44 +237,42 @@ router.patch('/user/activate', auth.userAuth, async(req,res)=>{
 
 
 // logout from user
-router.delete('/logout',auth.generalAuth, async(req,res)=>{
-    try{
-        req.user.tokens = req.user.tokens.filter(ele=>{
-            return ele.token!=req.token
+router.delete('/logout', auth.generalAuth, async(req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter(ele => {
+            return ele.token != req.token
         })
         await req.user.save()
         res.status(200).send({
-            status:true,
-            message:'logged out'
+            status: true,
+            message: 'logged out'
         })
-    }
-    catch(e){
+    } catch (e) {
         res.status(500).send({
-            status:false,
-            message:'error',
-            error:e.message
+            status: false,
+            message: 'error',
+            error: e.message
         })
     }
 })
 
-router.delete('/logoutAll',auth.generalAuth, async(req,res)=>{
-    try{
-        req.user.tokens=[]
+router.delete('/logoutAll', auth.generalAuth, async(req, res) => {
+    try {
+        req.user.tokens = []
         await req.user.save()
         res.status(200).send({
-            status:true,
-            message:'logged out'
+            status: true,
+            message: 'logged out'
         })
-    }
-    catch(e){
+    } catch (e) {
         res.status(500).send({
-            status:false,
-            message:'error',
-            error:e.message
+            status: false,
+            message: 'error',
+            error: e.message
         })
     }
 })
 
- 
+
 
 module.exports = router

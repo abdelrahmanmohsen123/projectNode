@@ -8,7 +8,7 @@ const catController = require('../controller/cats.controller')
 
 
 // Add categores 
-router.post('/cat/addCats', auth.adminAuth ,catController.addMainCat)
+router.post('/cat/addCats', auth.adminAuth, catController.addMainCat)
 
 // Show all categores
 router.get('/cat/displayCats', catController.displayAllMainCats)
