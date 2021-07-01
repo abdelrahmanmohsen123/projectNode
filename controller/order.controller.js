@@ -1,6 +1,7 @@
 // To used model file
 const Order = require('../models/order.model')
-
+const Cart = require('../models/cart.model')
+const Item = require('../models/item.model')
 // Add order 
 const addOrder = async (req, res) => {
     
@@ -9,8 +10,17 @@ const addOrder = async (req, res) => {
             ...req.body,
             // 'cat_id':req.cats._id,
         })
-       
-        await order.save()
+        await order.populate({
+            path:'ordercart'
+        }).execPopulate()
+        console.log(order.ordercart)
+        // cartId= req.body.cart_id
+        // let cart = await Cart.findById(cartId)
+        // console.log(cart.item_id)
+        // let item = await Item.findById(cart[0].item_id)
+        // console.log(item)
+        // console.log(cart)
+        // await order.save()
         res.status(200).send({
             apiStatus: true,
             order: {order},

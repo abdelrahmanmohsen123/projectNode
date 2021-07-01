@@ -25,7 +25,7 @@ const cartSchema = new mongoose.Schema({
     // }
 }, {timestamps: true})
 
-cartSchema.virtual('order',{
+cartSchema.virtual('ordercart',{
     ref:'Order',
     localField:'_id',
     foreignField:'cart_id'

@@ -29,7 +29,8 @@ const orderSchema = new mongoose.Schema({
     },
     status:{
         type: String,
-        enum: ['pending', 'accept', 'finish', 'refuse by resturan', 'refuse by system']
+        enum: ['pending', 'accept', 'finish', 'refuse by resturan', 'refuse by system'],
+        default: 'pending'
     },
     time_order:{
         type:String,
