@@ -8,7 +8,7 @@ const itemController = require('../controller/item.controller')
 
 
 // Add items 
-router.post('/addItem',auth.adminAuth,itemController.addItem)
+router.post('/addItem', itemController.uploadItemImg().single('itemImage') ,itemController.addItem)
 
 // Show all items
  router.get('/showAllItems', itemController.showAllItems)

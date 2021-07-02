@@ -100,7 +100,7 @@ const displySingleCat = async (req,res) => {
 const delSingleCat = async (req, res) => {
     try {
         let id = req.params.id
-       await Items.deleteMany({cat_id:id})
+        await Items.deleteMany({cat_id:id})
         await Cats.findByIdAndDelete(id)
         res.status(200).send({
             apiStatus: true,
