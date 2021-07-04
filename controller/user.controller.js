@@ -41,9 +41,19 @@ const userRegister = async(req, res) => {
         
         // if(allowedEx.includes(lowerExImg)) imgName = `${Date.now()}.${lowerExImg}`
         // else imgName = `../avatar/avatar.jpeg`
+        
+        
+        if(data.userImage == '') imgName = `../avatar/avatar.jpeg`
+
 
         if(!allowedEx.includes(exImg)) throw new Error (`Please insert valid image`)
+       
         data.userImage = imgName
+       
+
+        
+        console.log(imgName)
+        
         data.activateCode = Math.random()
         await data.save()
 

@@ -8,7 +8,7 @@ const itemController = require('../controller/item.controller')
 
 
 // Add items 
-router.post('/addItem', itemController.uploadItemImg().single('itemImage') ,itemController.addItem)
+router.post('/cat/addItem', itemController.uploadItemImg().single('itemImage') ,itemController.addItem)
 
 // Show all items
  router.get('/showAllItems', itemController.showAllItems)

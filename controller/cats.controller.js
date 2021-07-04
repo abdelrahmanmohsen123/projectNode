@@ -58,7 +58,7 @@ const displayAllMainCats = async (req, res) => {
         if(!cats) throw new Error (`Data not founded`)
         res.status(200).send({
             apiStatus: true,
-            cats: cats,
+            success: cats,
             message: `All data cats`
         })
     }

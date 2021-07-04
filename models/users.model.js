@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     accountStatus: { type: Boolean, default: false },
     activateCode: { type: String },
     address: { type: String },
-    userType: { type: String, required: true, enum: ['admin', 'user'] },
+    userType: { type: String, enum: ['admin', 'user'], default: 'user' },
     phone: { 
         type: String , 
         required: true, 

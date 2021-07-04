@@ -23,7 +23,8 @@ const itemSchema = new mongoose.Schema({
         {
             name:{
                 type:String,
-                enum:['large', 'meduim', 'small']
+                enum:['large', 'meduim', 'small', 'none'], 
+                default: 'none'
             },
             price:{type:Number, required:true},   
         }
@@ -41,6 +42,7 @@ const itemSchema = new mongoose.Schema({
     ],
 
 }, { timestamps:true })
+
 
 itemSchema.virtual('cartItem',{
     ref:'Cart',
