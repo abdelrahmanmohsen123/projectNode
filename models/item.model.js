@@ -21,7 +21,7 @@ const itemSchema = new mongoose.Schema({
     itemImage:{type: String},
     size:[
         {
-            name:{
+            sizeType:{
                 type:String,
                 enum:['large', 'meduim', 'small', 'none'], 
                 default: 'none'

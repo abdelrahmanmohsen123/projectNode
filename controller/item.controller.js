@@ -64,12 +64,13 @@ const editItem = async(req, res) => {
         await data.save()
         res.status(200).send({
             apiStatus: true,
-            data: data,
+            success: data,
             message: `Updated success ${allowUpdate}`
         })
     } catch (error) {
         res.status(500).send({
             apiStatus: false,
+            result: error,
             message: `Check data to update`
         })
     }
@@ -104,7 +105,7 @@ const showSingleItem = async(req, res) => {
 
             res.status(200).send({
                 apiStatus: true,
-                ItemSingle: { data },
+                success: data,
                 message: `Single Item`
             })
         } catch (error) {

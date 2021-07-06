@@ -14,11 +14,11 @@ router.post('/cat/addItem', itemController.uploadItemImg().single('itemImage'), 
 router.get('/cat/showAllItems', itemController.showAllItems)
 
 //Show single item
-router.get('/showItem/:id', itemController.showSingleItem)
+router.get('/cat/showItem/:id', itemController.showSingleItem)
 
 // Edit items by id (edit item)
-router.patch('/editItem/:id', auth.adminAuth, itemController.editItem)
+router.patch('/cat/editItem/:id', auth.adminAuth, itemController.editItem)
 
 // Delete single item
-router.delete('/deleteItem/:id', auth.adminAuth, itemController.delSingleItem)
+router.delete('/cat/deleteItem/:id', auth.adminAuth, itemController.delSingleItem)
 module.exports = router
