@@ -82,7 +82,7 @@ const displySingleCat = async (req,res) => {
 
         res.status(200).send({
             apiStatus: true,
-            CatsSingle: {data},
+            success: data,
             message: `Single category`
         })
     }

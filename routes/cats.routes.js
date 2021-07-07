@@ -17,7 +17,7 @@ router.get('/cat/displayCats', catController.displayAllMainCats)
 router.get('/cat/showCat/:id', catController.displySingleCat)
 
 // Edit cats by id (edit category name)
-router.patch('/cat/editCats/:id', auth.adminAuth, catController.editMainNameCat)
+router.patch('/cat/editCats/:id',  catController.editMainNameCat)
 
 // Delete single cat 
 router.delete('/cat/deleteCat/:id', auth.adminAuth, catController.delSingleCat)

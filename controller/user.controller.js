@@ -34,25 +34,25 @@ const userRegister = async(req, res) => {
     try {
         let data = new User(req.body)
 
-        // Valid image 
-        let exImg = `${(imgName.split('.').pop())}`
+        // // Valid image 
+        // let exImg = `${(imgName.split('.').pop())}`
 
-        let allowedEx = ['jpg', 'png', 'jpeg', 'svg']
+        // let allowedEx = ['jpg', 'png', 'jpeg', 'svg']
         
-        // if(allowedEx.includes(lowerExImg)) imgName = `${Date.now()}.${lowerExImg}`
-        // else imgName = `../avatar/avatar.jpeg`
+        // // if(allowedEx.includes(lowerExImg)) imgName = `${Date.now()}.${lowerExImg}`
+        // // else imgName = `../avatar/avatar.jpeg`
         
         
-        if(data.userImage == '') imgName = `../avatar/avatar.jpeg`
+        // // if(data.userImage == '') imgName = `../avatar/avatar.jpeg`
 
 
-        if(!allowedEx.includes(exImg)) throw new Error (`Please insert valid image`)
+        // if(!allowedEx.includes(exImg)) throw new Error (`Please insert valid image`)
        
         data.userImage = imgName
        
 
         
-        console.log(imgName)
+       
         
         data.activateCode = Math.random()
         await data.save()

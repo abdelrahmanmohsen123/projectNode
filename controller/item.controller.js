@@ -45,7 +45,8 @@ const addItem = async(req, res) => {
                 message: `Check data to insert`
             })
         }
-    }
+}
+
     // Edit name of main category
 const editItem = async(req, res) => {
     try {
@@ -116,7 +117,7 @@ const showSingleItem = async(req, res) => {
             })
         }
 
-    }
+}
     //Delete single cat
 const delSingleItem = async(req, res) => {
 
