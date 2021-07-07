@@ -1,9 +1,9 @@
 // To used model file
 const Cats = require('../models/cats.model')
 const Items = require('../models/item.model')
-// Add main category 
-const addMainCat = async (req, res) => {
-    
+    // Add main category 
+const addMainCat = async(req, res) => {
+
     try {
         let cats = new Cats(req.body)
         await cats.save()
@@ -12,8 +12,7 @@ const addMainCat = async (req, res) => {
             cats: cats,
             message: `data inserted`
         })
-    }
-    catch(error) {
+    } catch (error) {
         res.status(500).send({
             apiStatus: false,
             result: error,
@@ -28,11 +27,11 @@ const editMainNameCat = async(req, res) => {
         id = req.params.id
         let data = await Cats.findById(id)
         let objkeys = Object.keys(req.body)
-        if(objkeys.length == 0)  throw new Error ()
+        if (objkeys.length == 0) throw new Error()
         let allowUpdate = ['catName']
         let validUpdate = objkeys.every(cat => allowUpdate.includes(cat))
-        
-        if(!validUpdate) res.status(500).send({
+
+        if (!validUpdate) res.status(500).send({
             apiStatus: false,
             message: `Not allowed update ${allowUpdate} only`
         })
@@ -42,8 +41,7 @@ const editMainNameCat = async(req, res) => {
             apiStatus: true,
             message: `Updated success ${allowUpdate}`
         })
-    }
-    catch(error) {
+    } catch (error) {
         res.status(500).send({
             apiStatus: false,
             message: `Check data to update`
@@ -52,17 +50,16 @@ const editMainNameCat = async(req, res) => {
 }
 
 // Display all main category
-const displayAllMainCats = async (req, res) => {
+const displayAllMainCats = async(req, res) => {
     try {
         let cats = await Cats.find()
-        if(!cats) throw new Error (`Data not founded`)
+        if (!cats) throw new Error(`Data not founded`)
         res.status(200).send({
             apiStatus: true,
             success: cats,
             message: `All data cats`
         })
-    }
-    catch(error) {
+    } catch (error) {
         res.status(500).send({
             apiStatus: false,
             result: error,
@@ -72,42 +69,41 @@ const displayAllMainCats = async (req, res) => {
 }
 
 // Show single main cat
-const displySingleCat = async (req,res) => {
+const displySingleCat = async(req, res) => {
     try {
 
         let id = req.params.id
         let data = await Cats.findById(id)
-
-        if(!data) throw new Error (`Data not founded of category`)
+        let itemData = await Items.find({ cat_id: id })
+        if (!data) throw new Error(`Data not founded of category`)
 
         res.status(200).send({
             apiStatus: true,
             success: data,
+            itemData: itemData,
             message: `Single category`
         })
-    }
-    catch(error){
+    } catch (error) {
         res.status(500).send({
             apiStatus: false,
             result: error.message,
             message: `Check data`
         })
     }
-    
+
 }
 
 // Delete single cat
-const delSingleCat = async (req, res) => {
+const delSingleCat = async(req, res) => {
     try {
         let id = req.params.id
-        await Items.deleteMany({cat_id:id})
+        await Items.deleteMany({ cat_id: id })
         await Cats.findByIdAndDelete(id)
         res.status(200).send({
             apiStatus: true,
             message: `Deleted done`
         })
-    }
-    catch(error){
+    } catch (error) {
         res.status(500).send({
             apiStatus: false,
             result: error.message,
