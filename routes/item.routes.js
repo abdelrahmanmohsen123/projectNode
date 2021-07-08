@@ -13,11 +13,11 @@ router.post('/cat/addItem', itemController.uploadItemImg().single('itemImage'), 
 // Show all items
 router.get('/cat/showAllItems', itemController.showAllItems)
 
-//Show single item
+// Show single item
 router.get('/cat/showItem/:id', itemController.showSingleItem)
 
 // Edit items by id (edit item)
-router.patch('/cat/editItem/:id', auth.adminAuth, itemController.editItem)
+router.patch('/cat/editItem/:id', itemController.editItem)
 
 // Delete single item
 router.delete('/cat/deleteItem/:id', auth.adminAuth, itemController.delSingleItem)

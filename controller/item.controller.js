@@ -47,14 +47,14 @@ const addItem = async(req, res) => {
         }
 }
 
-    // Edit name of main category
+// Edit name of main category
 const editItem = async(req, res) => {
     try {
         id = req.params.id
         let data = await Items.findById(id)
         let objkeys = Object.keys(req.body)
         if (objkeys.length == 0) throw new Error()
-        let allowUpdate = ['name', 'image', 'price', 'description', 'size', 'offer_item']
+        let allowUpdate = ['cat_id', 'name', 'itemImage', 'DateFrom', 'DateTo', 'description', 'size', 'offer_item']
         let validUpdate = objkeys.every(item => allowUpdate.includes(item))
 
         if (!validUpdate) res.status(500).send({
@@ -71,7 +71,7 @@ const editItem = async(req, res) => {
     } catch (error) {
         res.status(500).send({
             apiStatus: false,
-            result: error,
+            result: error.message,
             message: `Check data to update`
         })
     }
