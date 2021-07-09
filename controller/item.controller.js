@@ -18,6 +18,7 @@ function uploadItemImg() {
     upload = multer({ storage })
     return upload
 }
+
 // Add main item 
 const addItem = async(req, res) => {
 
@@ -25,10 +26,10 @@ const addItem = async(req, res) => {
 
             let cat = await Cats.findById(req.body.cat_id)
             if (cat == null) throw new Error('not found category')
-
+            
             let items = await new Items({
                 ...req.body,
-                //  'cat_id':req.cats._id,
+                // 'cat_id':req.cats._id,
             })
 
             items.itemImage = imgName

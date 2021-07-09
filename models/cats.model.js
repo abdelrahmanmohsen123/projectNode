@@ -9,6 +9,7 @@ const catSchema = new mongoose.Schema({
         required: [true, 'Please write category name'], 
         maxlength: 20,
         minlength: 3,
+        trim: true,
         unique: [true, 'The name of this category was established']
     }
 }, { timestamps:true })

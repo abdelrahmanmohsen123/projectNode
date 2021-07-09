@@ -12,31 +12,33 @@ const itemSchema = new mongoose.Schema({
     },
     name: { 
         type: String, 
-        required: [true, 'Please write item name'], 
+        required: [true, 'Please write item name'],
+        trim: true, 
         maxlength: 40,
         minlength: 3,
         unique: [true, 'The name of this item was established']
     },
-    description:{type: String},
-    itemImage:{type: String},
+    description:{type: String, trim: true},
+    itemImage:{type: String , trim: true},
     size:[
         {
             sizeType:{
-                type:String,
-                enum:['large', 'meduim', 'small', 'none'], 
+                type: String,
+                enum:['large', 'meduim', 'small', 'none'],
+                trim: true,
                 default: 'none'
             },
-            price:{type:Number, required:true},   
+            price:{type:Number, required:true, trim: true},   
         }
     ],
     DateFrom:{type:Date},
     DateTo:{type:Date},
-    price:{type:Number},
+    
     offer_item:[
         {
             is_offer:{type:Boolean,default:false},
-            newPrice:{type:Number},
-            desc:{type:String}
+            newPrice:{type:Number, trim: true},
+            desc:{type:String, trim: true}
             
         }
     ],
