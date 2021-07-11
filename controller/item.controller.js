@@ -16,6 +16,7 @@ function uploadItemImg() {
         }
     })
     upload = multer({ storage })
+    // console.log(upload)
     return upload
 }
 
@@ -36,7 +37,7 @@ const addItem = async(req, res) => {
             await items.save()
             res.status(200).send({
                 apiStatus: true,
-                items: items,
+                success: items,
                 message: `item inserted`
             })
         } catch (error) {
