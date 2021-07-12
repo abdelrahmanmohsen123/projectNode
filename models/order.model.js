@@ -8,12 +8,12 @@ const orderSchema = new mongoose.Schema({
         required: true,
         unique:true,
         ref:'Cart' // ------ //
-    },
-    total_price:{
-        type:Number
+    }, // user_id
+    total_price:{ 
+        type:Number // cart
     },
     tax:{
-        type:Number
+        type:Number // 
     },
     address :{
         type: String

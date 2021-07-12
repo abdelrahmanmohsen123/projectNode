@@ -36,7 +36,7 @@ const itemSchema = new mongoose.Schema({
     
     offer_item:[
         {
-            is_offer:{type:Boolean,default:false},
+            // is_offer:{type:Boolean,default:false},
             newPrice:{type:Number, trim: true},
             desc:{type:String, trim: true}
             

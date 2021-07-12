@@ -23,30 +23,42 @@ function uploadItemImg() {
 // Add main item 
 const addItem = async(req, res) => {
 
-        try {
+    try {
 
-            let cat = await Cats.findById(req.body.cat_id)
-            if (cat == null) throw new Error('not found category')
-            
-            let items = await new Items({
-                ...req.body,
-                // 'cat_id':req.cats._id,
-            })
+        let cat = await Cats.findById(req.body.cat_id)
+        if (cat == null) throw new Error('not found category')
+        
+        let items = await new Items({
+            ...req.body,
+            // 'cat_id':req.cats._id,
+        })
 
-            items.itemImage = imgName
-            await items.save()
-            res.status(200).send({
-                apiStatus: true,
-                success: items,
-                message: `item inserted`
-            })
-        } catch (error) {
-            res.status(500).send({
-                apiStatus: false,
-                result: error.message,
-                message: `Check data to insert`
-            })
-        }
+        items.itemImage = imgName
+        
+        items.offer_item.forEach(ele => {
+            if(ele.newPrice == undefined ||  ele.desc == undefined) {
+               ele.findByIdAndDelete(ele._id)
+                // (ele._id).remove()
+            }
+            console.log(`After is ${ele._id} => ${ele.desc}`)
+            console.log(ele._id)
+        })
+        
+        await items.save()
+    
+        res.status(200).send({
+            apiStatus: true,
+            success: items,
+            message: `item inserted`
+        })
+    } 
+    catch (error) {
+        res.status(500).send({
+            apiStatus: false,
+            result: error.message,
+            message: `Check data to insert`
+        })
+    }
 }
 
 // Edit name of main category
