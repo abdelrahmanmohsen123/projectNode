@@ -35,14 +35,14 @@ const addItem = async(req, res) => {
 
         items.itemImage = imgName
         
-        items.offer_item.forEach(ele => {
-            if(ele.newPrice == undefined ||  ele.desc == undefined) {
-               ele.findByIdAndDelete(ele._id)
-                // (ele._id).remove()
-            }
-            console.log(`After is ${ele._id} => ${ele.desc}`)
-            console.log(ele._id)
-        })
+        // items.offer_item.forEach(ele => {
+        //     if(ele.newPrice == undefined ||  ele.desc == undefined) {
+        //        ele.findByIdAndDelete(ele._id)
+        //         // (ele._id).remove()
+        //     }
+        //     console.log(`After is ${ele._id} => ${ele.desc}`)
+        //     console.log(ele._id)
+        // })
         
         await items.save()
     

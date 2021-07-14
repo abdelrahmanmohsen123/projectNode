@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs')
 const Cats = require('../models/cats.model')
 
 const itemSchema = new mongoose.Schema({
@@ -31,15 +29,21 @@ const itemSchema = new mongoose.Schema({
             price:{type:Number, required:true, trim: true},   
         }
     ],
-    DateFrom:{type:Date},
-    DateTo:{type:Date},
-    
+    dateRange: {
+        type: [String, 'Please insert valid date'],
+        trim: true, 
+        required: [true, 'The date of this item was established']    
+    },
     offer_item:[
         {
             // is_offer:{type:Boolean,default:false},
             newPrice:{type:Number, trim: true},
-            desc:{type:String, trim: true}
-            
+            desc:{type:String, trim: true},
+            dateRange: {
+                type: [String, 'Please insert valid date'],
+                trim: true, 
+                required: [true, 'The date of this item was established']    
+            },
         }
     ],
 
@@ -51,8 +55,6 @@ itemSchema.virtual('cartItem',{
     localField:'_id',
     foreignField:'cart.item_id'
 })
-
-
 
 const Items = mongoose.model('Items', itemSchema)
 module.exports = Items
