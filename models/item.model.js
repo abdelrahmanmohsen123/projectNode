@@ -39,7 +39,7 @@ const itemSchema = new mongoose.Schema({
             // is_offer:{type:Boolean,default:false},
             newPrice:{type:Number, trim: true},
             desc:{type:String, trim: true},
-            dateRange: {
+            dateRangeOffer: {
                 type: [String, 'Please insert valid date'],
                 trim: true, 
                 required: [true, 'The date of this item was established']    
@@ -53,7 +53,7 @@ const itemSchema = new mongoose.Schema({
 itemSchema.virtual('cartItem',{
     ref:'Cart',
     localField:'_id',
-    foreignField:'cart.item_id'
+    foreignField:'item_id'
 })
 
 const Items = mongoose.model('Items', itemSchema)

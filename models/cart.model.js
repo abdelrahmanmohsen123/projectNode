@@ -13,17 +13,11 @@ const cartSchema = new mongoose.Schema({
             
             quantity: {
                 type: Number,
-                default: 1
+                default: 1,
+                min: [1, 'Quantity can not be less then 1.']
             }
         }
     ]
-    
-    
-    
-    // cancel: {
-    //     type: Boolean,
-    //     default: false
-    // }
 }, {timestamps: true})
 
 cartSchema.virtual('ordercart',{
