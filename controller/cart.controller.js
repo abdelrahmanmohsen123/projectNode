@@ -4,24 +4,80 @@ const Items = require('../models/item.model')
 const Cart = require('../models/cart.model')
 
 // Add main Cart 
-const addMainCart = async  (req, res) =>  {
+const addMainCart = async (req, res) => {
+    let userId = req.body.user_id
 
+    let itemId = req.body.products.item_id
+
+    let items = await Items.findById(itemId)
+
+    let quantityOfItem = Number.parseInt(req.body.products.quantity)
+
+    let itemSize = items.size
+
+
+    let priceItem = null
+
+    itemSize.forEach(s => {
+        priceItem = Number.parseInt(s.price)
+    })
+
+    let totalPriceItem = priceItem * quantityOfItem
+
+    let id = '60f0f676ea5a2f3e9428ac39'
     try {
-        let items = await Items.findById(req.body.products.item_id)
-        total=items.size[0].price*req.body.products.quantity
-        let cart = await new Cart
-        cart.products.push({item_id:req.body.products.item_id,
-                            quantity:req.body.products.quantity,
-                            price:items.size[0].price,
-                            total:total
-                        })  
-    //    console.log(cart)
-        // await cart.save()
-        res.status(200).send({
-            apiStatus: true,
-            success: cart,
-            message: `item inserted`
-        })
+
+        let cart = await Cart.findById(id)
+        let indexedItem = cart.products.findIndex(i => i.item_id == itemId)
+        console.log(indexedItem)
+        if(cart) {
+            let indexedItem = cart.products.findIndex(i => i.item_id == itemId)
+
+            if(indexedItem > -1) {
+                let productItem = cart.products[indexedItem]
+                productItem.quantity = quantityOfItem
+                cart.products[indexedItem] = productItem
+            } else {
+                cart.products.push({
+                    item_id: itemId,
+                    quantity: quantityOfItem,
+                    price: priceItem,
+                    total: totalPriceItem
+                }) 
+            }
+            console.log(cart, userId)
+            await cart.save()
+            return res.status(200).send({
+                apiStatus: true,
+                success: cart,
+                message: `item inserted`
+            })
+            
+        } else {
+            // console.log(cart, userId)
+
+            // let newCart = await new Cart
+            newCart = 
+                {
+                    user_id: userId,
+                    products: [{
+                        item_id: itemId,
+                        quantity: quantityOfItem,
+                        price: priceItem,
+                        total: totalPriceItem
+                    }]
+    
+                }
+                ayhaga = await Cart.create(newCart)
+            
+            console.log(typeof({userId}) ,priceItem, totalPriceItem)
+            await ayhaga.save()
+            return res.status(201).send(ayhaga)
+        }
+
+         
+        // console.log(cart)
+        
     }
     catch(error) {
         res.status(500).send({
