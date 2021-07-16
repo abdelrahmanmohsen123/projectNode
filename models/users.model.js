@@ -38,6 +38,11 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true }
 )
 
+userSchema.virtual('cartUser', {
+    ref:'Cart',
+    localField: '_id',
+    foreignField: 'user_id'
+})
 //not show password
 userSchema.methods.toJSON = function() {
     let user = this.toObject() // *****

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
-const Cats = require('../models/cats.model')
+
 
 const itemSchema = new mongoose.Schema({
     cat_id: {

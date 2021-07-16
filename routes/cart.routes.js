@@ -10,7 +10,8 @@ const cartController = require('../controller/cart.controller')
 // Add cart ///  athu ///
 router.post('/addcarts',  cartController.addMainCart)
 
- router.post('/addMaelToCart',  cartController.addMaelToCart)
+router.post('/addMaelToCart',  cartController.addMaelToCart)
+
 
 // Show single cart
 router.get('/showcart/:id', cartController.displySinglecart)

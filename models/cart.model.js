@@ -2,22 +2,42 @@ const mongoose = require('mongoose')
 
 
 const cartSchema = new mongoose.Schema({
-    cart:[
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        require: true,
+        trim: true,
+        ref: 'User'
+    },
+    
+    products: [
         {
             item_id: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,
-                unique: true,
-                ref:'Items' // ------ //
+                ref:'Items', // ------ //
             },
-            
             quantity: {
                 type: Number,
                 default: 1,
                 min: [1, 'Quantity can not be less then 1.']
+            },
+            price: {
+                type: Number,
+                required: true
+            },
+            total: {
+                type: Number,
+                required: true
             }
         }
-    ]
+
+    ],
+
+    subTotal: {
+        type: Number,
+        default: 0
+    }
+            
 }, {timestamps: true})
 
 cartSchema.virtual('ordercart',{

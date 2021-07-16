@@ -4,25 +4,22 @@ const Items = require('../models/item.model')
 const Cart = require('../models/cart.model')
 
 // Add main Cart 
-const addMainCart = async function (req, res)  {
+const addMainCart = async  (req, res) =>  {
 
-    
-    // let items = Items.findById(Items['_id'])
-    // console.log(items)
     try {
-        let cart = await new Cart({
-            ...req.body,
-            // 'cat_id':req.cats._id,
-        })
-        // if(cart.length!=0){
-        //    await cart.push(req.body)
-        // }
-
-       console.log(cart)
-        await cart.save()
+        let items = await Items.findById(req.body.products.item_id)
+        total=items.size[0].price*req.body.products.quantity
+        let cart = await new Cart
+        cart.products.push({item_id:req.body.products.item_id,
+                            quantity:req.body.products.quantity,
+                            price:items.size[0].price,
+                            total:total
+                        })  
+    //    console.log(cart)
+        // await cart.save()
         res.status(200).send({
             apiStatus: true,
-            cart: cart,
+            success: cart,
             message: `item inserted`
         })
     }
