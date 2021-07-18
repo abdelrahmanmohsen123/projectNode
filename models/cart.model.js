@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const cartSchema = new mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        require: true,
+        required: true,
         trim: true,
         ref: 'User'
     },
@@ -20,6 +20,10 @@ const cartSchema = new mongoose.Schema({
                 type: Number,
                 default: 1,
                 min: [1, 'Quantity can not be less then 1.']
+            },
+            sizeType: {
+                type: String,
+                required: true
             },
             price: {
                 type: Number,

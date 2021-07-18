@@ -1,7 +1,8 @@
 // To used model file
 const Cats = require('../models/cats.model')
 const Items = require('../models/item.model')
-    // Add main category 
+
+// Add main category 
 const addMainCat = async(req, res) => {
 
     try {
@@ -111,7 +112,6 @@ const delSingleCat = async(req, res) => {
         })
     }
 }
-
 
 // To exports function controller
 module.exports = {
