@@ -8,7 +8,7 @@ const orderController = require('../controller/order.controller')
 
 
 // Add order
-router.post('/addorder', auth.userAuth ,orderController.addOrder)
+router.post('/addorder', orderController.addOrder)
 
 // Edit order
 router.patch('/edit/:id',auth.adminAuth ,orderController.editOrder)

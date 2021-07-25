@@ -6,6 +6,7 @@ const Cart = require('../models/cart.model')
 // Add main Cart 
 const addMainCart = async (req, res) => {    
     try {
+
         let user_id = req.body.user_id
 
         let item_id = req.body.products.item_id
@@ -29,9 +30,8 @@ const addMainCart = async (req, res) => {
         let total = price * quantity
 
         let subTotalFun = (cart) => {
-            let subTotal = 0
-            cart.products.forEach(sub => subTotal += sub.total)
-            cart.subTotal = subTotal
+            let totalPrice = cart.products.reduce((subTotal, sub) => subTotal + sub.total , 0)
+            cart.subTotal = totalPrice
         }
 
         if(user_id) {
@@ -217,5 +217,5 @@ module.exports = {
     displySinglecart,
     editCart,
     delSingleCart,
-     addMaelToCart
+    addMaelToCart
 }

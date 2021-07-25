@@ -6,7 +6,6 @@ const auth = require('../middleware/auth')
 
 const catController = require('../controller/cats.controller')
 
-
 // Add categores 
 router.post('/cat/addCats', catController.addMainCat)
 
@@ -21,6 +20,5 @@ router.patch('/cat/editCats/:id', catController.editMainNameCat)
 
 // Delete single cat 
 router.delete('/cat/deleteCat/:id', catController.delSingleCat)
-
 
 module.exports = router

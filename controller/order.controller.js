@@ -6,14 +6,15 @@ const Item = require('../models/item.model')
 const addOrder = async (req, res) => {
     
     try {
-        let order = await new Order({
-            ...req.body,
-            // 'cat_id':req.cats._id,
-        })
-        await order.populate({
+        // let order = await new Order({
+        //     ...req.body,
+        //     // 'cat_id':req.cats._id,
+        // })
+        order = await new Order()
+        await req.order.populate({
             path:'ordercart'
         }).execPopulate()
-        console.log(order.ordercart)
+        console.log(req.order)
         // cartId= req.body.cart_id
         // let cart = await Cart.findById(cartId)
         // console.log(cart.item_id)

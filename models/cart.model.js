@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-
 const cartSchema = new mongoose.Schema({
+
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -32,7 +32,24 @@ const cartSchema = new mongoose.Schema({
             total: {
                 type: Number,
                 required: true
-            }
+            },
+            
+            // Offers ????
+            offers: [
+                {
+                    newPrice: {
+                        type: Number, 
+                        required: true
+                    },
+
+                    desc: {
+                        type: String,
+                        required: true 
+                    }
+                    
+                },
+            ]
+
         }
 
     ],
@@ -49,6 +66,7 @@ cartSchema.virtual('ordercart',{
     localField:'_id',
     foreignField:'cart_id'
 })
+
 const Cart = mongoose.model('Cart', cartSchema)
 
 module.exports = Cart

@@ -17,7 +17,15 @@ const itemSchema = new mongoose.Schema({
         unique: [true, 'The name of this item was established']
     },
     description:{type: String, trim: true},
+    // images to used frond ????????
+    // itemImages: [
+    //     imageName: {type: String , trim: true},
+    //     imagePath: {type: String, required: true}
+    // ],
+
+    // or
     itemImage:{type: String , trim: true},
+   
     size:[
         {
             sizeType:{
@@ -37,8 +45,8 @@ const itemSchema = new mongoose.Schema({
     offer_item:[
         {
             // is_offer:{type:Boolean,default:false},
-            newPrice:{type:Number, trim: true},
-            desc:{type:String, trim: true},
+            newPrice:{type: Number, trim: true},
+            desc:{type: String, trim: true},
             dateRangeOffer: {
                 type: [String, 'Please insert valid date'],
                 trim: true, 
