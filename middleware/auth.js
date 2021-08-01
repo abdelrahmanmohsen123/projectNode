@@ -7,7 +7,7 @@ const adminAuth = async(req, res, next) => {
         const token = req.header('Authorization').replace('bearer ', '')
         const myDecodedToken = jwt.verify(token, process.env.JWT)
         const user = await User.findOne({
-            _id: myDecodedToken._id,
+            _id: myDecodedToken._id, 
             'tokens.token': token,
             userType: 'admin'
         })

@@ -34,7 +34,8 @@ const itemSchema = new mongoose.Schema({
                 trim: true,
                 default: 'none'
             },
-            price:{type:Number, required:true, trim: true},   
+            price: {type: Number, required:true, trim: true},
+             
         }
     ],
     dateRange: {
@@ -45,7 +46,14 @@ const itemSchema = new mongoose.Schema({
     offer_item:[
         {
             // is_offer:{type:Boolean,default:false},
+            sizeType:{
+                type: String,
+                enum:['large', 'meduim', 'small', 'none'],
+                trim: true,
+                default: 'none'
+            },
             newPrice:{type: Number, trim: true},
+            disCount: {type: Number, trim: true, default: 0},
             desc:{type: String, trim: true},
             dateRangeOffer: {
                 type: [String, 'Please insert valid date'],

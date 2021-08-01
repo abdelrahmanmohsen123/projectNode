@@ -6,18 +6,18 @@ const multer = require('multer')
 
 // Uploaded image
 let imgName = ''
-let erroEx = 'Please unsert valid image'
+let erroExtention = 'Please insert valid image'
 // let uploadedFile = ''
 
-function uploadedFile () {
+let uploadedFile =  () => {
     let storage = multer.diskStorage({
-        destination: function (req, res, cb) { cb (null, 'images') },
+        destination:  (req, res, cb) =>  { cb (null, 'images') },
         
-        filename: function(req, file, cb) {
+        filename: (req, file, cb) => {
 
-            let exImg = `${(file.originalname.split('.').pop())}`
+            let extentionImage = `${(file.originalname.split('.').pop())}`
 
-            let lowerExImg = exImg.toLowerCase()
+            let lowerExImg = extentionImage.toLowerCase()
 
             imgName = `${Date.now()}.${lowerExImg}`
 
@@ -28,8 +28,7 @@ function uploadedFile () {
     return uploadImg
 }
 
-
-const userRegister = async(req, res) => {
+const userRegister = async (req, res) => {
     
     try {
         let data = new User(req.body)
@@ -49,26 +48,41 @@ const userRegister = async(req, res) => {
         // if(!allowedEx.includes(exImg)) throw new Error (`Please insert valid image`)
        
         data.userImage = imgName
-       
-
-        
-       
-        
-        data.activateCode = Math.random()
+    
+        // data.activateCode = Math.random()
         await data.save()
 
         res.status(200).send({
             status: true,
-            userData: data,
-            message: 'user inserted'
+            success: data,
+            message: `Congratulations! to register`
         })
     } 
 
-    catch (e) {
+    catch (error) {
         res.status(500).send({
             status: false,
-            userData: e.message,
-            message: 'data error to register'
+            result: error,
+            message: `Check data to register`
+        })
+    }
+}
+
+const userLogin = async (req, res) => {
+    try {
+        let user = await User.logMeOn(req.body.email, req.body.password)
+        let token = await user.generateAuthToken()
+        res.status(200).send({
+            status: true,
+            success: { token, user },
+            message: "Logged in success"
+        })
+    } 
+    catch (error) {
+        res.status(500).send({
+            status: false,
+            result: error,
+            message: "Check! email or password"
         })
     }
 }
@@ -93,7 +107,7 @@ const showAllUser = async (req, res) => {
 
 }
 
-const editUser = async(req, res) => {
+const editUser = async (req, res) => {
     reqEdit = Object.keys(req.body)
     editItems = ['fname', 'lname', 'password', 'userImage', 'phone']
     allowedEdit = reqEdit.every(item => editItems.includes(item))
@@ -124,7 +138,7 @@ const editUser = async(req, res) => {
     } catch (error) {
         res.status(500).send({
             status: false,
-            message: error.message
+            message: error.message 
         })
     }
 }
@@ -132,6 +146,7 @@ const editUser = async(req, res) => {
 module.exports = {
     uploadedFile,
     userRegister,
+    userLogin,
     showAllUser,
     editUser
 }

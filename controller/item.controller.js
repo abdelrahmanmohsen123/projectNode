@@ -31,8 +31,22 @@ const addItem = async(req, res) => {
         let items = new Items({ ...req.body })
 
         items.itemImage = imgName
+
+        disCount = .05
+
+        items.size.forEach(item => {
+            console.log(item.sizeType ,item.price)
+        })
+
+        items.offer_item.forEach(offer => {
+            console.log(offer)
+        })
+
+        // console.log(items)
+
+       
         
-        await items.save()
+        // await items.save()
     
         res.status(200).send({
             apiStatus: true,

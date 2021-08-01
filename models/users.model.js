@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
 const userSchema = new mongoose.Schema({
-    // id: { type: Number },
     fname: { type: String, required: true, maxlength: 20, minlength: 3, trim: true },
     lname: { type: String, required: true, maxlength: 20, minlength: 3, trim: true },
     password: { type: String, trim: true, required: true },
@@ -23,7 +22,7 @@ const userSchema = new mongoose.Schema({
     userType: { type: String, enum: ['admin', 'user'], default: 'user', trim: true },
     phone: { 
         type: String , 
-        required: true, 
+        required: [true, `Phone has token`],  
         unique: true,
         trim: true,
         validate(value) {

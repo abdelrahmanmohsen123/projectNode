@@ -9,7 +9,7 @@ const userController = require('../controller/user.controller')
 const auth = require('../middleware/auth')
 
 
-// register user
+// register user 
 router.post('/user/register', userController.uploadedFile().single('userImage'), userController.userRegister)
 
 // get all user
@@ -83,25 +83,7 @@ router.patch('/user/edit/:id', auth.adminAuth, userController.uploadedFile().sin
 
 
 // login to user
-router.post('/user/login', async(req, res) => {
-    try {
-        let user = await User.logMeOn(req.body.email, req.body.password)
-
-        //console.log(user)
-        let token = await user.generateAuthToken()
-        res.status(200).send({
-            status: true,
-            userData: { token, user },
-            message: "logged in"
-        })
-    } catch (error) {
-        res.status(500).send({
-            status: false,
-            err: error.message,
-            message: "error in log in"
-        })
-    }
-})
+router.post('/user/login', userController.userLogin)
 
 router.patch('/admin/activate/:id', auth.adminAuth, async(req, res) => {
     try {
