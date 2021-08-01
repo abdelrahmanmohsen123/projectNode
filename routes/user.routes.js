@@ -16,11 +16,11 @@ router.post('/user/register', userController.uploadedFile().single('userImage'),
 router.post('/user/all', userController.showAllUser)
 
 // get single user
-router.get('/user/single/:id', auth.adminAuth, async(req, res) => {
+router.get('/user/single/:id', auth.adminAuth, async (req, res) => {
     try {
         let user_id = req.params.id
         let showUser = await User.findById(user_id)
-            //console.log(showUser)
+        //console.log(showUser)
         if (!showUser) return res.status(500).send({
             apiStatus: false,
             result: error,
@@ -40,7 +40,7 @@ router.get('/user/single/:id', auth.adminAuth, async(req, res) => {
 })
 
 // delete acc by admin
-router.delete('/user/delUser/:id', auth.adminAuth, async(req, res) => {
+router.delete('/user/delUser/:id', auth.adminAuth, async (req, res) => {
     try {
         let id = req.params.id
         console.log(id)
@@ -59,9 +59,8 @@ router.delete('/user/delUser/:id', auth.adminAuth, async(req, res) => {
     }
 })
 
-
 // delete acc by user
-router.delete('/user/delete', auth.userAuth, async(req, res) => {
+router.delete('/user/delete', auth.userAuth, async (req, res) => {
     try {
 
         await req.user.remove()
@@ -81,11 +80,10 @@ router.delete('/user/delete', auth.userAuth, async(req, res) => {
 // User edit 
 router.patch('/user/edit/:id', auth.adminAuth, userController.uploadedFile().single('userImage'), userController.editUser)
 
-
 // login to user
 router.post('/user/login', userController.userLogin)
 
-router.patch('/admin/activate/:id', auth.adminAuth, async(req, res) => {
+router.patch('/admin/activate/:id', auth.adminAuth, async (req, res) => {
     try {
         id = req.params.id
         user = await User.findById(id)
@@ -103,7 +101,7 @@ router.patch('/admin/activate/:id', auth.adminAuth, async(req, res) => {
     }
 })
 
-router.patch('/admin/deactivate/:id', auth.adminAuth, async(req, res) => {
+router.patch('/admin/deactivate/:id', auth.adminAuth, async (req, res) => {
     try {
         id = req.params.id
         user = await User.findById(id)
@@ -122,7 +120,7 @@ router.patch('/admin/deactivate/:id', auth.adminAuth, async(req, res) => {
 })
 
 // activate user by rand code (need to func email or phone to activate code)
-router.patch('/user/activate', auth.userAuth, async(req, res) => {
+router.patch('/user/activate', auth.userAuth, async (req, res) => {
     try {
         let code = req.body.activateCode
         if (code == req.user.activateCode) {
@@ -143,44 +141,9 @@ router.patch('/user/activate', auth.userAuth, async(req, res) => {
     }
 })
 
-
 // logout from user
-router.delete('/logout', auth.generalAuth, async(req, res) => {
-    try {
-        req.user.tokens = req.user.tokens.filter(ele => {
-            return ele.token != req.token
-        })
-        await req.user.save()
-        res.status(200).send({
-            status: true,
-            message: 'logged out'
-        })
-    } catch (e) {
-        res.status(500).send({
-            status: false,
-            message: 'error',
-            error: e.message
-        })
-    }
-})
+router.post('/user/logout', auth.generalAuth, userController.logOut)
 
-router.delete('/logoutAll', auth.generalAuth, async(req, res) => {
-    try {
-        req.user.tokens = []
-        await req.user.save()
-        res.status(200).send({
-            status: true,
-            message: 'logged out'
-        })
-    } catch (e) {
-        res.status(500).send({
-            status: false,
-            message: 'error',
-            error: e.message
-        })
-    }
-})
-
-
+router.post('/user/logoutAll', auth.generalAuth, userController.logOutAll)
 
 module.exports = router

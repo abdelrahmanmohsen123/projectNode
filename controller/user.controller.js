@@ -9,10 +9,10 @@ let imgName = ''
 let erroExtention = 'Please insert valid image'
 // let uploadedFile = ''
 
-let uploadedFile =  () => {
+let uploadedFile = () => {
     let storage = multer.diskStorage({
-        destination:  (req, res, cb) =>  { cb (null, 'images') },
-        
+        destination: (req, res, cb) => { cb(null, 'images') },
+
         filename: (req, file, cb) => {
 
             let extentionImage = `${(file.originalname.split('.').pop())}`
@@ -29,7 +29,7 @@ let uploadedFile =  () => {
 }
 
 const userRegister = async (req, res) => {
-    
+
     try {
         let data = new User(req.body)
 
@@ -37,18 +37,18 @@ const userRegister = async (req, res) => {
         // let exImg = `${(imgName.split('.').pop())}`
 
         // let allowedEx = ['jpg', 'png', 'jpeg', 'svg']
-        
+
         // // if(allowedEx.includes(lowerExImg)) imgName = `${Date.now()}.${lowerExImg}`
         // // else imgName = `../avatar/avatar.jpeg`
-        
-        
+
+
         // // if(data.userImage == '') imgName = `../avatar/avatar.jpeg`
 
 
         // if(!allowedEx.includes(exImg)) throw new Error (`Please insert valid image`)
-       
+
         data.userImage = imgName
-    
+
         // data.activateCode = Math.random()
         await data.save()
 
@@ -57,7 +57,7 @@ const userRegister = async (req, res) => {
             success: data,
             message: `Congratulations! to register`
         })
-    } 
+    }
 
     catch (error) {
         res.status(500).send({
@@ -77,7 +77,7 @@ const userLogin = async (req, res) => {
             success: { token, user },
             message: "Logged in success"
         })
-    } 
+    }
     catch (error) {
         res.status(500).send({
             status: false,
@@ -127,7 +127,7 @@ const editUser = async (req, res) => {
         })
 
         fs.unlink(`images/${oldImage}`, (error) => {
-            if(error) `Error`
+            if (error)`Error`
         })
 
         await data.save()
@@ -138,7 +138,44 @@ const editUser = async (req, res) => {
     } catch (error) {
         res.status(500).send({
             status: false,
-            message: error.message 
+            message: error.message
+        })
+    }
+}
+
+const logOut = async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter(ele => ele.token != req.token)
+        await req.user.save()
+        res.status(200).send({
+            status: true,
+            message: 'logged out'
+        })
+    }
+    catch (error) {
+        res.status(500).send({
+            status: false,
+            result: error.message,
+            message: 'error'
+        })
+    }
+}
+
+const logOutAll = async (req, res) => {
+    try {
+        req.user.tokens = []
+        await req.user.save()
+        res.status(200).send({
+            status: true,
+            message: 'logged out all'
+        })
+    }
+    catch (error) {
+        res.status(500).send({
+            status: false,
+            result: error.message,
+            message: 'error'
+
         })
     }
 }
@@ -148,5 +185,7 @@ module.exports = {
     userRegister,
     userLogin,
     showAllUser,
-    editUser
+    editUser,
+    logOut,
+    logOutAll
 }
