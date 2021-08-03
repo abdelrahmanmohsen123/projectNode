@@ -13,31 +13,10 @@ const auth = require('../middleware/auth')
 router.post('/user/register', userController.uploadedFile().single('userImage'), userController.userRegister)
 
 // get all user
-router.post('/user/all', userController.showAllUser)
+router.post('/user/all', auth.adminAuth, userController.showAllUser)
 
 // get single user
-router.get('/user/single/:id', auth.adminAuth, async (req, res) => {
-    try {
-        let user_id = req.params.id
-        let showUser = await User.findById(user_id)
-        //console.log(showUser)
-        if (!showUser) return res.status(500).send({
-            apiStatus: false,
-            result: error,
-        })
-        res.status(200).send({
-            apiStatus: true,
-            result: showUser,
-            message: `Data of user`
-        })
-    } catch (error) {
-        res.status(500).send({
-            apiStatus: false,
-            result: error.message,
-            message: `Can't show data`
-        })
-    }
-})
+router.get('/user/single/:id', auth.adminAuth, userController.showSingleUser)
 
 // delete acc by admin
 router.delete('/user/delUser/:id', auth.adminAuth, async (req, res) => {
@@ -78,7 +57,7 @@ router.delete('/user/delete', auth.userAuth, async (req, res) => {
 })
 
 // User edit 
-router.patch('/user/edit/:id', auth.adminAuth, userController.uploadedFile().single('userImage'), userController.editUser)
+router.patch('/user/edit/:id', auth.generalAuth, userController.uploadedFile().single('userImage'), userController.editUser)
 
 // login to user
 router.post('/user/login', userController.userLogin)

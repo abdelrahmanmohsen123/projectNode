@@ -90,55 +90,71 @@ const userLogin = async (req, res) => {
 const showAllUser = async (req, res) => {
     try {
         let allUsers = await User.find()
+        if (!allUsers) throw new Error()
         res.status(200).send({
             status: true,
-            message: "all user are",
-            allUsers: allUsers,
-
+            success: allUsers,
+            message: "All users"
         })
 
-    } catch (e) {
+    } catch (error) {
         res.status(500).send({
             status: false,
-            dataAll: e,
-            message: 'error in show data'
+            result: error,
+            message: 'There are no users'
         })
     }
 
 }
 
-const editUser = async (req, res) => {
-    reqEdit = Object.keys(req.body)
-    editItems = ['fname', 'lname', 'password', 'userImage', 'phone']
-    allowedEdit = reqEdit.every(item => editItems.includes(item))
-    if (!allowedEdit) return res.status(500).send({
-        status: false,
-        message: 'invalid edit user'
-    })
-
+const showSingleUser = async (req, res) => {
     try {
-        id = req.params.id
-        data = await User.findById(id)
-        oldImage = data.userImage
-        data.userImage = imgName
-
-        reqEdit.forEach(update => {
-            data[update] = req.body[update]
-        })
-
-        fs.unlink(`images/${oldImage}`, (error) => {
-            if (error)`Error`
-        })
-
-        await data.save()
+        let user_id = req.params.id
+        let showUser = await User.findById(user_id)
+        //console.log(showUser)
+        if (!showUser) throw new Error()
         res.status(200).send({
-            status: true,
-            message: 'updated user success'
+            apiStatus: true,
+            success: showUser,
+            message: `Data of single user`
         })
     } catch (error) {
         res.status(500).send({
+            apiStatus: false,
+            result: error,
+            message: `There is no data`
+        })
+    }
+}
+
+const editUser = async (req, res) => {
+    try {
+        let keyStore = Object.keys(req.body)
+        let editUser = ['fname', 'lname', 'password', 'userImage', 'phone', 'email']
+        let allowedEdit = keyStore.every(user => editUser.includes(user))
+        if (!allowedEdit) throw new Error(`allow to update ${editUser} only`)
+        let id = req.params.id
+        let data = await User.findById(id)
+        let oldImage = data.userImage
+        data.userImage = imgName
+
+        keyStore.forEach(update => {
+            data[update] = req.body[update]
+        })
+
+        fs.unlink(`images/${oldImage}`, (error) => { if (error)`Error image` })
+        await data.save()
+        res.status(200).send({
+            status: true,
+            success: data,
+            message: 'updated user success'
+        })
+    }
+    catch (error) {
+        res.status(500).send({
             status: false,
-            message: error.message
+            result: error.message,
+            message: 'check data to update'
         })
     }
 }
@@ -185,6 +201,7 @@ module.exports = {
     userRegister,
     userLogin,
     showAllUser,
+    showSingleUser,
     editUser,
     logOut,
     logOutAll
